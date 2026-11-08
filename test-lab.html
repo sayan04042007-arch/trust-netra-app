@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrustNetra AI — Interactive Security Testing Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #090e1a;
+    --card: #111a2e;
+    --border: rgba(0, 210, 255, 0.2);
+    --cyan: #00d2ff;
+    --blue: #0070f3;
+    --danger: #ff2a5f;
+    --warning: #ffb800;
+    --success: #00e599;
+    --text: #ffffff;
+    --dim: #94a3b8;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Plus Jakarta Sans', sans-serif; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    padding: 30px 20px;
+    min-height: 100vh;
+    background-image: 
+      radial-gradient(circle at 15% 20%, rgba(0, 210, 255, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0, 112, 243, 0.08) 0%, transparent 40%);
+  }
+  .container { max-width: 950px; margin: 0 auto; }
+  
+  header {
+    text-align: center;
+    margin-bottom: 35px;
+  }
+  .badge {
+    display: inline-block;
+    background: rgba(0, 210, 255, 0.1);
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px; }
+  h1 span {
+    background: linear-gradient(135deg, var(--cyan), var(--blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  p.sub { color: var(--dim); font-size: 1rem; margin-top: 6px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  .card-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .test-item {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.2s ease;
+  }
+  .test-item:hover {
+    border-color: rgba(0, 210, 255, 0.4);
+    transform: translateY(-2px);
+  }
+  .test-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  .test-name { font-weight: 700; font-size: 0.95rem; color: #fff; }
+  .test-tag {
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+  }
+  .tag-danger { background: rgba(255, 42, 95, 0.15); color: var(--danger); border: 1px solid var(--danger); }
+  .tag-warning { background: rgba(255, 184, 0, 0.15); color: var(--warning); border: 1px solid var(--warning); }
+  .tag-success { background: rgba(0, 229, 153, 0.15); color: var(--success); border: 1px solid var(--success); }
+
+  .test-desc { font-size: 0.82rem; color: var(--dim); line-height: 1.5; margin-bottom: 14px; }
+  .expected-box {
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.78rem;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 14px;
+    border: 1px dashed rgba(255,255,255,0.1);
+  }
+  .expected-box b { color: var(--cyan); }
+
+  .btn {
+    background: linear-gradient(135deg, var(--cyan), var(--blue));
+    color: #000;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+  }
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 210, 255, 0.4);
+  }
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--cyan);
+  }
+  .btn-outline:hover {
+    background: rgba(0, 210, 255, 0.1);
+  }
+
+  /* Live Phishing Simulation Form Box */
+  .mock-form-box {
+    background: rgba(255, 42, 95, 0.05);
+    border: 1px solid rgba(255, 42, 95, 0.3);
+    border-radius: 12px;
+    padding: 18px;
+    margin-top: 14px;
+  }
+  .mock-input {
+    width: 100%;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: #fff;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    outline: none;
+  }
+  .mock-input:focus { border-color: var(--danger); }
+
+  /* Interactive Progress Tracker */
+  .tracker {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    padding: 14px 20px;
+    margin-bottom: 24px;
+    border: 1px solid var(--border);
+  }
+  .tracker-title { font-weight: 700; font-size: 0.95rem; }
+  .tracker-score { font-size: 1.2rem; font-weight: 800; color: var(--success); }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="badge">🔬 1-CLICK VERIFICATION WORKBENCH</div>
+    <h1>TrustNetra AI <span>Testing Lab</span></h1>
+    <p class="sub">Test all 6 HackMatrix security modules, benchmark targets, and in-page DOM defenses in under 60 seconds.</p>
+  </header>
+
+  <!-- TEST PROGRESS SUMMARY -->
+  <div class="tracker">
+    <div>
+      <div class="tracker-title">HackMatrix Testing Benchmark Readiness</div>
+      <div style="font-size:0.8rem; color:var(--dim);">Tests required by PS Section 7 (3 Suspicious + 3 Benign + DOM Credential Shield)</div>
+    </div>
+    <div class="tracker-score" id="testCounter">Ready to Test</div>
+  </div>
+
+  <!-- 1. IN-PAGE DOM CREDENTIAL SHIELD TEST -->
+  <div class="card">
+    <div class="card-title">
+      <span>🚨 Test 1: In-Page Password Harvester Interceptor (Real-time DOM Shield)</span>
+      <span class="test-tag tag-danger">Live DOM Test</span>
+    </div>
+    <p class="test-desc">
+      When an unverified or test website requests a <b>Password</b>, TrustNetra's in-page content script intercepts the DOM and floats an immediate warning banner on the top-right of your screen.
+    </p>
+
+    <!-- Simulated Phishing Form -->
+    <div class="mock-form-box">
+      <div style="font-size:0.85rem; font-weight:800; color:var(--danger); margin-bottom:8px;">
+        ⚠️ MOCK DECEPTIVE LOGIN FORM (Simulating Fake SBI NetBanking)
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+        <div>
+          <label style="font-size:0.75rem; color:var(--dim);">User ID / Username:</label>
+          <input type="text" class="mock-input" value="user_sayan_test" placeholder="Enter Username..." />
+        </div>
+        <div>
+          <label style="font-size:0.75rem; color:var(--danger); font-weight:700;">Password (Trigger Field):</label>
+          <input type="password" class="mock-input" value="DemoPassword123" placeholder="Enter Password..." />
+        </div>
+      </div>
+      <p style="font-size:0.78rem; color:#ffccd6;">
+        👉 <b>What to look for:</b> Notice the floating alert in the <b>top-right corner</b> of your browser screen: <br>
+        <code style="color:var(--danger);">"🚨 Credential Harvesting Warning: Password field detected on unverified domain!"</code>
+      </p>
+    </div>
+  </div>
+
+  <!-- 2. HACKMATRIX BENCHMARK TEST MATRIX -->
+  <div class="card">
+    <div class="card-title">
+      <span>🌐 Test 2 to 6: Live Target Benchmarks (Click to Open in Tab)</span>
+    </div>
+
+    <div class="grid">
+
+      <!-- TEST: Missing SCT / eMudhra CT Log Failure -->
+      <div class="test-item">
+        <div>
+          <div class="test-head">
+            <span class="test-name">1. Missing CT Logs (RFC 6962)</span>
+            <span class="test-tag tag-danger">Score: 18</span>
+          </div>
+          <p class="test-desc">Simulates rogue CA issuance or unlogged TLS certificate (eMudhra Anomaly pattern).</p>
+          <div class="expected-box">
+            Target: <b>no-sct.badssl.com</b><br>
+            Result: <b>CRITICAL: Missing CT Log Proof</b>
+          </div>
+        </div>
+        <a href="https://no-sct.badssl.com/" target="_blank" class="btn">
+          <span>Launch Target ➔</span>
+        </a>
+      </div>
+
+      <!-- TEST: Expired Certificate -->
+      <div class="test-item">
+        <div>
+          <div class="test-head">
+            <span class="test-name">2. Expired Certificate</span>
+            <span class="test-tag tag-danger">Score: 22</span>
+          </div>
+          <p class="test-desc">Certificate lifecycle violation where crypto expiry has lapsed.</p>
+          <div class="expected-box">
+            Target: <b>expired.badssl.com</b><br>
+            Result: <b>FAILED (Expired TLS Certificate)</b>
+          </div>
+        </div>
+        <a href="https://expired.badssl.com/" target="_blank" class="btn">
+          <span>Launch Target ➔</span>
+        </a>
+      </div>
+
+      <!-- TEST: Host Mismatch -->
+      <div class="test-item">
+        <div>
+          <div class="test-head">
+            <span class="test-name">3. Domain Host Mismatch</span>
+            <span class="test-tag tag-danger">Score: 15</span>
+          </div>
+          <p class="test-desc">Certificate was issued for a different SAN/CN entity (Impersonation attempt).</p>
+          <div class="expected-box">
+            Target: <b>wrong.host.badssl.com</b><br>
+            Result: <b>FAILED (Host Identity Mismatch)</b>
+          </div>
+        </div>
+        <a href="https://wrong.host.badssl.com/" target="_blank" class="btn">
+          <span>Launch Target ➔</span>
+        </a>
+      </div>
+
+      <!-- TEST: Benign Google LLC -->
+      <div class="test-item">
+        <div>
+          <div class="test-head">
+            <span class="test-name">4. Benign Corporate Portal</span>
+            <span class="test-tag tag-success">Score: 98</span>
+          </div>
+          <p class="test-desc">Official Google LLC root infrastructure passing all CT logs and HSTS checks.</p>
+          <div class="expected-box">
+            Target: <b>google.com</b><br>
+            Result: <b>Site Verified & Secure (Low Risk)</b>
+          </div>
+        </div>
+        <a href="https://google.com" target="_blank" class="btn btn-outline">
+          <span>Launch Target ➔</span>
+        </a>
+      </div>
+
+      <!-- TEST: Benign Official Bank -->
+      <div class="test-item">
+        <div>
+          <div class="test-head">
+            <span class="test-name">5. Benign Official Bank</span>
+            <span class="test-tag tag-success">Score: 99</span>
+          </div>
+          <p class="test-desc">State Bank of India official banking portal on the verified .sbi gTLD.</p>
+          <div class="expected-box">
+            Target: <b>onlinesbi.sbi</b><br>
+            Result: <b>Verified Financial Gateway (Low Risk)</b>
+          </div>
+        </div>
+        <a href="https://onlinesbi.sbi" target="_blank" class="btn btn-outline">
+          <span>Launch Target ➔</span>
+        </a>
+      </div>
+
+      <!-- TEST: Web Dashboard & SMS Scanner -->
+      <div class="test-item">
+        <div>
+          <div class="test-head">
+            <span class="test-name">6. AI Message & Web3 Hub</span>
+            <span class="test-tag tag-warning">Module 3, 4, 6</span>
+          </div>
+          <p class="test-desc">Test SMS social engineering scanner, Campaign #IND-402, and Polygon Web3 ledger.</p>
+          <div class="expected-box">
+            Target: <b>index.html</b><br>
+            Features: <b>SMS NLP · Web3 Hash Verifier</b>
+          </div>
+        </div>
+        <a href="../scratch/trustnetra-ai/index.html" target="_blank" class="btn">
+          <span>Open Dashboard ➔</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- HOW TO TEST IN 3 STEPS -->
+  <div class="card">
+    <div class="card-title">
+      <span>📋 60-Second Testing Protocol for Judges</span>
+    </div>
+    <ol style="margin-left:20px; font-size:0.9rem; line-height:1.7; color:#cbd5e1;">
+      <li><b>Test the In-Page Defense:</b> Look at this very page! Notice TrustNetra's floating shield in the top right, which detected the password input field automatically.</li>
+      <li><b>Test BadSSL Certificate Failure:</b> Click <b>"Launch Target"</b> for <code>no-sct.badssl.com</code>. Click the TrustNetra extension icon on that tab to verify the <b>18 / 100 High Risk</b> score and RFC 6962 alert.</li>
+      <li><b>Test AI Message Scanner & Web3:</b> Click <b>"Open Dashboard"</b>. Switch to the <i>"Check an SMS or Message"</i> tab, click the <i>"SBI Scam SMS"</i> preset, and click <i>"Analyze Message"</i> to see the social engineering panic score and extracted UPI drop ID!</li>
+    </ol>
+  </div>
+
+</div>
+
+</body>
+</html>

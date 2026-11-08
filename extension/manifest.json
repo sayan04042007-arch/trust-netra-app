@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "TrustNetra AI - Web Threat Shield",
+  "version": "1.0.0",
+  "description": "Real-time AI-powered phishing detection, TLS certificate validation & Certificate Transparency auditor.",
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "TrustNetra AI Threat Scanner",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["dashboard.html", "dashboard.js", "popup.html", "icon*.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

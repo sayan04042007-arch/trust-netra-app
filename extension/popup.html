@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TrustNetra AI Shield</title>
+  <style>
+    :root {
+      --bg: #090e1a;
+      --card: #111a2e;
+      --cyan: #00f0ff;
+      --blue: #0077ff;
+      --danger: #ff2a5f;
+      --success: #00ff9d;
+      --warning: #ffb700;
+      --text: #ffffff;
+      --text-dim: #8b9bb4;
+      --border: rgba(0, 240, 255, 0.2);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    body {
+      width: 360px;
+      background: var(--bg);
+      color: var(--text);
+      padding: 16px;
+      overflow-x: hidden;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+    .logo-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-icon {
+      width: 26px;
+      height: 26px;
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 14px;
+      color: #000;
+    }
+    .logo-title {
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+    .logo-title span { color: var(--cyan); }
+    .status-pill {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 12px;
+      background: rgba(0, 255, 157, 0.15);
+      color: var(--success);
+      border: 1px solid var(--success);
+    }
+
+    /* Target URL */
+    .url-chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 11px;
+      font-family: monospace;
+      color: var(--text-dim);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 14px;
+    }
+    .url-chip span { color: var(--cyan); font-weight: 600; }
+
+    /* Score gauge container */
+    .score-banner {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+    }
+    .gauge-circle {
+      position: relative;
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .gauge-circle svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+    .gauge-circle circle {
+      fill: none;
+      stroke-width: 6;
+      stroke-linecap: round;
+    }
+    .gauge-bg { stroke: rgba(255, 255, 255, 0.08); }
+    .gauge-val {
+      stroke: var(--success);
+      stroke-dasharray: 163;
+      stroke-dashoffset: 20;
+      transition: stroke-dashoffset 0.8s ease, stroke 0.4s ease;
+    }
+    .gauge-text {
+      position: absolute;
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .verdict-info h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .verdict-info p {
+      font-size: 11px;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+
+    /* Pillars mini-grid */
+    .mini-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .mini-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 6px;
+      padding: 8px;
+    }
+    .mini-card .label {
+      font-size: 10px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 3px;
+    }
+    .mini-card .val {
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .emudhra-alert {
+      background: rgba(255, 42, 95, 0.1);
+      border-left: 3px solid var(--danger);
+      padding: 8px 10px;
+      border-radius: 4px;
+      font-size: 10.5px;
+      color: #ff9cb4;
+      line-height: 1.4;
+      margin-bottom: 12px;
+      display: none;
+    }
+
+    /* Buttons */
+    .btn-row {
+      display: flex;
+      gap: 8px;
+    }
+    .btn {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      color: #000;
+    }
+    .btn-primary:hover {
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--cyan);
+    }
+    .btn-outline:hover {
+      background: rgba(0, 240, 255, 0.08);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="logo-box">
+      <img src="icon48.png" style="width:24px; height:24px; border-radius:6px;" alt="Logo" />
+      <div class="logo-title">TRUST<span>NETRA</span> AI</div>
+    </div>
+    <div class="status-pill" id="statusBadge">SHIELD ACTIVE</div>
+  </div>
+
+  <div class="url-chip" id="currentUrl">Scanning active tab...</div>
+
+  <div class="score-banner">
+    <div class="gauge-circle">
+      <svg viewBox="0 0 60 60">
+        <circle class="gauge-bg" cx="30" cy="30" r="26"></circle>
+        <circle class="gauge-val" id="gaugeRing" cx="30" cy="30" r="26"></circle>
+      </svg>
+      <div class="gauge-text" id="scoreNumber">--</div>
+    </div>
+    <div class="verdict-info">
+      <h4 id="verdictHeadline">Analyzing Site...</h4>
+      <p id="verdictSub">Running heuristic & cryptographic integrity checks...</p>
+    </div>
+  </div>
+
+  <div class="emudhra-alert" id="emudhraAlert">
+    ⚠️ <strong>TLS Audit Warning:</strong> Certificate chain contains attributes flagged under the eMudhra duplicate key / weak CA generation anomaly list.
+  </div>
+
+  <div class="mini-grid">
+    <div class="mini-card">
+      <div class="label">Typosquatting</div>
+      <div class="val" id="typoResult" style="color: var(--success);">Clean</div>
+    </div>
+    <div class="mini-card">
+      <div class="label">TLS & CT Logs</div>
+      <div class="val" id="certResult" style="color: var(--success);">Verified</div>
+    </div>
+    <div class="mini-card">
+      <div class="label">Security Headers</div>
+      <div class="val" id="headersResult" style="color: var(--success);">Strict HSTS</div>
+    </div>
+    <div class="mini-card">
+      <div class="label">Threat Intel</div>
+      <div class="val" id="intelResult" style="color: var(--success);">0 Reports</div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary" id="openDashboardBtn">Open Full Dashboard</button>
+    <button class="btn btn-outline" id="recheckBtn">Re-Scan</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
