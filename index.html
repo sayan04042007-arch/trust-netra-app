@@ -3423,22 +3423,32 @@ function renderResults(url) {
       }
     }
 
-    // 2. Sensitive Financial & Phishing Bait Lexicon
+    // 2. Sensitive Financial, Phishing & Prize Scam Lexicon
     const baitLexicon = [
       'bank', 'account', 'update', 'secure', 'security', 'login', 'signin', 'auth',
       'verify', 'verification', 'kyc', 'wallet', 'password', 'billing', 'confirm',
       'portal', 'recover', 'recovery', 'claim', 'refund', 'support', 'pay', 'payment', 'service',
-      'online', 'alert', 'otp', 'card', 'access', 'ebank', 'netbanking'
+      'online', 'alert', 'otp', 'card', 'access', 'ebank', 'netbanking',
+      'free', 'prize', 'lottery', 'winner', 'gift', 'reward', 'bonus', 'cash', 'giveaway',
+      'airdrop', 'crypto', 'bitcoin', 'usdt', 'jackpot', 'luckydraw', 'recharge', 'offer',
+      'voucher', 'coupon', 'earnmoney', 'investment', 'joboffer', 'parttime', 'telegram'
+    ];
+
+    const prizeLexicon = [
+      'free', 'prize', 'lottery', 'winner', 'gift', 'reward', 'bonus', 'cash',
+      'giveaway', 'airdrop', 'jackpot', 'luckydraw', 'recharge', 'voucher', 'coupon', 'claim'
     ];
 
     const matchedBait = baitLexicon.filter(w => hostLower.includes(w) || fullLower.includes(w));
+    const matchedPrize = prizeLexicon.filter(w => hostLower.includes(w) || fullLower.includes(w));
     const isMultiBait = matchedBait.length >= 2;
     const isBankSpoof = matchedBait.includes('bank') || matchedBait.includes('netbanking') || matchedBait.includes('ebank');
     const hasCredentialBait = matchedBait.includes('account') || matchedBait.includes('recovery') || matchedBait.includes('update') || matchedBait.includes('login') || matchedBait.includes('verify') || matchedBait.includes('password');
+    const isPrizeScam = matchedPrize.length >= 2 || (matchedPrize.length >= 1 && (cleanHost.includes('claim') || cleanHost.includes('free') || cleanHost.includes('win') || cleanHost.includes('prize') || cleanHost.includes('-')));
 
     // 3. Structural URL Analysis
     const hostParts = cleanHost.split('.');
-    const hasSubdomainChaining = hostParts.length > 2 && (isMultiBait || cleanHost.includes('-') || spoofedBrand !== null);
+    const hasSubdomainChaining = hostParts.length > 2 && (isMultiBait || isPrizeScam || cleanHost.includes('-') || spoofedBrand !== null);
     const riskyTlds = ['.xyz', '.top', '.click', '.online', '.site', '.tk', '.ml', '.cf', '.gq', '.work', '.live', '.cc', '.buzz'];
     const hasRiskyTld = riskyTlds.some(t => hostLower.endsWith(t));
     const isExampleOrTest = hostLower.includes('example.com') || hostLower.includes('test') || hostLower.includes('demo');
@@ -3452,15 +3462,20 @@ function renderResults(url) {
       reasons.push(`Unauthorized Brand Impersonation (${spoofedBrand.name} spoofed on third-party domain)`);
     }
 
+    if (isPrizeScam) {
+      score -= 75;
+      reasons.push(`Deceptive Prize / Reward Bait (${matchedPrize.slice(0, 3).join('-')})`);
+    }
+
     if (isHttp) {
       score -= 40;
       reasons.push('Insecure Unencrypted HTTP Protocol (Cleartext Transmission)');
     }
 
-    if (isMultiBait) {
+    if (isMultiBait && !isPrizeScam) {
       score -= 40;
       reasons.push(`High-Risk Deceptive Phishing Tokens (${matchedBait.slice(0, 3).join('-')})`);
-    } else if (matchedBait.length === 1) {
+    } else if (matchedBait.length === 1 && !isPrizeScam) {
       score -= 20;
       reasons.push(`Sensitive Financial Keyword (${matchedBait[0]})`);
     }
@@ -3475,18 +3490,22 @@ function renderResults(url) {
       reasons.push('High-Abuse Domain Extension');
     }
 
-    if (isExampleOrTest && (isMultiBait || isBankSpoof || spoofedBrand)) {
+    if (isExampleOrTest && (isMultiBait || isBankSpoof || spoofedBrand || isPrizeScam)) {
       score -= 15;
       reasons.push('Placeholder / Proxy Domain Exploitation');
     }
 
-    // Critical Overrides (Instant Malicious Rating for High-Confidence Phishing Traps)
+    // Critical Overrides (Instant Malicious Rating for High-Confidence Phishing & Scam Traps)
     if (spoofedBrand && (hasCredentialBait || isMultiBait || hostLower.includes('recovery') || hostLower.includes('account'))) {
       score = 12; // Instant 12/100 for Google / Bank Impersonation Phishing!
+    } else if (isPrizeScam) {
+      score = 11; // Instant 11/100 for Deceptive Prize / Free Gift / Lottery Scams!
     } else if (isHttp && (isBankSpoof || hasCredentialBait || isMultiBait)) {
       score = 12; // Instant 12/100 for Insecure HTTP Credential Lures!
     } else if (isBankSpoof && isMultiBait) {
       score = 18;
+    } else if (isMultiBait && (hasSubdomainChaining || cleanHost.includes('-') || hasRiskyTld)) {
+      score = 14;
     }
 
     score = Math.max(8, Math.min(95, score));
@@ -3506,6 +3525,12 @@ function renderResults(url) {
       title = `Deceptive ${spoofedBrand.name} Account Phish`;
       desc = `CRITICAL THREAT: "${cleanHost}" is masquerading as ${spoofedBrand.name}. It is an unauthorized phishing trap engineered on an external domain (${cleanHost.split('.').slice(-2).join('.')}) designed to hijack user accounts, passwords, and 2FA recovery credentials.`;
       action = `⛔ DANGER: Fake ${spoofedBrand.name} portal. Do NOT enter credentials, recovery emails, or passwords. Close this website immediately.`;
+    } else if (isPrizeScam && isMalicious) {
+      status = 'CONFIRMED MALICIOUS (PRIZE / SCAM LURE)';
+      badgeClass = 'badge-danger';
+      title = 'Deceptive Prize & Advance-Fee Scam Trap';
+      desc = `CRITICAL THREAT: "${cleanHost}" employs deceptive prize, lottery, or giveaway bait tokens (${matchedPrize.slice(0, 3).join(', ')}). This matches active social-engineering campaigns engineered to harvest banking credentials, phone numbers, or advance processing fees.`;
+      action = '⛔ DANGER: Fake prize or financial incentive scam. Do NOT enter bank details, OTPs, or personal data. Close this website immediately.';
     } else if (isMalicious) {
       status = 'CONFIRMED MALICIOUS (PHISHING)';
       badgeClass = 'badge-danger';
