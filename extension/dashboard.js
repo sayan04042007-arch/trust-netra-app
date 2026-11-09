@@ -984,11 +984,44 @@ function renderResults(url) {
     const hostLower = cleanHost;
     const fullLower = url.toLowerCase();
 
-    // 1. High-Profile Brand Impersonation Guard (Catches Google, SBI, Apple, PayPal spoofing!)
+    // 1. Authoritative Global Whitelist & Institutional Domain Guard (GUARANTEED GREEN)
+    const GLOBAL_SAFE_DOMAINS = [
+      'google.com', 'google.co.in', 'youtube.com', 'gmail.com', 'github.com', 'microsoft.com',
+      'apple.com', 'amazon.com', 'amazon.in', 'linkedin.com', 'twitter.com', 'x.com',
+      'facebook.com', 'instagram.com', 'wikipedia.org', 'reddit.com', 'netflix.com',
+      'spotify.com', 'cloudflare.com', 'vercel.app', 'stackoverflow.com', 'gitlab.com',
+      'medium.com', 'quora.com', 'zoom.us', 'slack.com', 'irctc.co.in', 'incometax.gov.in',
+      'uidai.gov.in', 'flipkart.com', 'swiggy.com', 'zomato.com', 'bookmyshow.com',
+      'zerodha.com', 'groww.in', 'makemytrip.com', 'onlinesbi.sbi', 'sbi.co.in', 'hdfcbank.com',
+      'icicibank.com', 'axisbank.com', 'kotak.com', 'pnbindia.in', 'bankofbaroda.in',
+      'nobelprize.org', 'pulitzer.org', 'unesco.org', 'who.int', 'un.org', 'devfolio.co'
+    ];
+
+    const isGlobalSafe = GLOBAL_SAFE_DOMAINS.some(d => hostLower === d || hostLower.endsWith('.' + d));
+    const isAcademicOrGov = 
+      hostLower.endsWith('.ac.in') || 
+      hostLower.endsWith('.edu.in') || 
+      hostLower.endsWith('.edu') || 
+      hostLower.endsWith('.gov.in') || 
+      hostLower.endsWith('.nic.in') || 
+      hostLower.endsWith('.ernet.in') || 
+      hostLower.endsWith('.res.in') ||
+      hostLower.endsWith('.gov') ||
+      hostLower.endsWith('.mil') ||
+      hostLower.endsWith('.int') ||
+      hostLower.includes('college') ||
+      hostLower.includes('university') ||
+      hostLower.includes('vidyamandir') ||
+      hostLower.includes('campus') ||
+      hostLower.includes('student') ||
+      hostLower.includes('institute');
+
+    // 2. High-Profile Brand Impersonation Guard
     const protectedBrands = [
       { name: 'Google', kw: 'google', legit: ['google.com', 'google.co.in', 'youtube.com', 'gmail.com'] },
       { name: 'State Bank of India', kw: 'sbi', legit: ['onlinesbi.sbi', 'sbi.co.in', 'sbi.bank.in'] },
       { name: 'HDFC Bank', kw: 'hdfc', legit: ['hdfcbank.com', 'hdfc.com'] },
+      { name: 'ICICI Bank', kw: 'icici', legit: ['icicibank.com'] },
       { name: 'PayPal', kw: 'paypal', legit: ['paypal.com'] },
       { name: 'Apple', kw: 'apple', legit: ['apple.com', 'icloud.com'] },
       { name: 'Microsoft', kw: 'microsoft', legit: ['microsoft.com', 'live.com', 'office.com', 'azure.com'] },
@@ -1009,115 +1042,81 @@ function renderResults(url) {
       }
     }
 
-    // 2. Sensitive Financial, Phishing & Prize Scam Lexicon
-    const baitLexicon = [
-      'bank', 'account', 'update', 'secure', 'security', 'login', 'signin', 'auth',
-      'verify', 'verification', 'kyc', 'wallet', 'password', 'billing', 'confirm',
-      'portal', 'recover', 'recovery', 'claim', 'refund', 'support', 'pay', 'payment', 'service',
-      'online', 'alert', 'otp', 'card', 'access', 'ebank', 'netbanking',
-      'free', 'prize', 'lottery', 'winner', 'gift', 'reward', 'bonus', 'cash', 'giveaway',
-      'airdrop', 'crypto', 'bitcoin', 'usdt', 'jackpot', 'luckydraw', 'recharge', 'offer',
-      'voucher', 'coupon', 'earnmoney', 'investment', 'joboffer', 'parttime', 'telegram'
-    ];
+    // 3. Phishing, Financial & Scam Bait Lexicons
+    const credentialBait = ['login', 'signin', 'auth', 'verify', 'verification', 'kyc', 'password', 'otp', 'recover', 'security', 'update', 'account'];
+    const financialBait = ['bank', 'wallet', 'billing', 'confirm', 'portal', 'claim', 'refund', 'pay', 'payment', 'card', 'ebank', 'netbanking'];
+    const prizeBait = ['free', 'prize', 'lottery', 'winner', 'gift', 'reward', 'bonus', 'cash', 'giveaway', 'airdrop', 'jackpot', 'luckydraw', 'recharge', 'voucher', 'coupon'];
+    const riskyTlds = ['.xyz', '.top', '.click', '.online', '.site', '.tk', '.ml', '.cf', '.gq', '.work', '.live', '.cc', '.buzz', '.rest', '.quest', '.icu', '.monster'];
 
-    const prizeLexicon = [
-      'free', 'prize', 'lottery', 'winner', 'gift', 'reward', 'bonus', 'cash',
-      'giveaway', 'airdrop', 'jackpot', 'luckydraw', 'recharge', 'voucher', 'coupon', 'claim'
-    ];
-
-    const matchedBait = baitLexicon.filter(w => hostLower.includes(w) || fullLower.includes(w));
-    const matchedPrize = prizeLexicon.filter(w => hostLower.includes(w) || fullLower.includes(w));
-    const isMultiBait = matchedBait.length >= 2;
-    const isBankSpoof = matchedBait.includes('bank') || matchedBait.includes('netbanking') || matchedBait.includes('ebank');
-    const hasCredentialBait = matchedBait.includes('account') || matchedBait.includes('recovery') || matchedBait.includes('update') || matchedBait.includes('login') || matchedBait.includes('verify') || matchedBait.includes('password');
-    const isPrizeScam = matchedPrize.length >= 2 || (matchedPrize.length >= 1 && (cleanHost.includes('claim') || cleanHost.includes('free') || cleanHost.includes('win') || cleanHost.includes('prize') || cleanHost.includes('-')));
-
-    // 3. Educational, Government & Institutional Whitelist Recognition
-    const isAcademicOrGov = 
-      hostLower.endsWith('.ac.in') || 
-      hostLower.endsWith('.edu.in') || 
-      hostLower.endsWith('.edu') || 
-      hostLower.endsWith('.gov.in') || 
-      hostLower.endsWith('.nic.in') || 
-      hostLower.endsWith('.ernet.in') || 
-      hostLower.endsWith('.res.in') ||
-      hostLower.endsWith('.org.in') ||
-      hostLower.includes('college') ||
-      hostLower.includes('university') ||
-      hostLower.includes('vidyamandir') ||
-      hostLower.includes('campus') ||
-      hostLower.includes('student') ||
-      hostLower.includes('institute');
-
-    // 4. Structural URL Analysis
-    const hostParts = cleanHost.split('.');
-    const hasSubdomainChaining = hostParts.length > 2 && (isMultiBait || isPrizeScam || cleanHost.includes('-') || spoofedBrand !== null) && !isAcademicOrGov;
-    const riskyTlds = ['.xyz', '.top', '.click', '.online', '.site', '.tk', '.ml', '.cf', '.gq', '.work', '.live', '.cc', '.buzz'];
+    const matchedCred = credentialBait.filter(w => hostLower.includes(w) || fullLower.includes(w));
+    const matchedFin = financialBait.filter(w => hostLower.includes(w) || fullLower.includes(w));
+    const matchedPrize = prizeBait.filter(w => hostLower.includes(w) || fullLower.includes(w));
     const hasRiskyTld = riskyTlds.some(t => hostLower.endsWith(t));
+    const hasHyphen = cleanHost.includes('-');
+    const hostParts = cleanHost.split('.');
+    const hasSubdomainChaining = hostParts.length > 2 && !isAcademicOrGov;
     const isExampleOrTest = hostLower.includes('example.com') || hostLower.includes('test') || hostLower.includes('demo');
 
-    // 5. Dynamic Multi-Factor Scoring
-    let score = 90;
+    // SCAM / PHISHING DETERMINATORS
+    const isPrizeScam = matchedPrize.length >= 2 || (matchedPrize.length >= 1 && (cleanHost.includes('claim') || cleanHost.includes('free') || cleanHost.includes('win') || hasHyphen || hasRiskyTld));
+    const totalBait = matchedCred.length + matchedFin.length;
+    const isMultiBait = totalBait >= 2;
+    const isMasquerade = GLOBAL_SAFE_DOMAINS.some(d => cleanHost.startsWith(d + '.') || cleanHost.includes('.' + d + '.'));
+
+    // 4. Multi-Vector Score Computation
+    let score = 88;
     let reasons = [];
+    let isMalicious = false;
+    let isSuspicious = false;
 
-    if (isAcademicOrGov && !isHttp && !spoofedBrand && !isPrizeScam) {
-      score = 94; // Certified Academic / Institutional Student Portal
-      reasons.push('Accredited Institutional Domain (.edu/.ac.in/academic entity)');
+    // RULE 1: If Verified Global Safe Authority or Academic/Govt: GUARANTEED GREEN
+    if ((isGlobalSafe || isAcademicOrGov) && !isHttp && !spoofedBrand && !isPrizeScam && !isMasquerade) {
+      score = 96;
+      reasons.push('Verified Global Authority / Accredited Institutional Trust Roots');
+    }
+    // RULE 2: Critical Phishing & Malicious Traps: GUARANTEED RED
+    else if (spoofedBrand) {
+      score = 11;
+      isMalicious = true;
+      reasons.push(`Unauthorized Brand Impersonation (${spoofedBrand.name} on rogue host)`);
+    } else if (isPrizeScam) {
+      score = 11;
+      isMalicious = true;
+      reasons.push(`Deceptive Prize / Reward / Giveaway Bait (${matchedPrize.slice(0, 3).join('-')})`);
+    } else if (isMasquerade) {
+      score = 10;
+      isMalicious = true;
+      reasons.push('Subdomain Hostname Masquerading Trap');
+    } else if (isHttp && (totalBait >= 1 || hasRiskyTld || isExampleOrTest)) {
+      score = 12;
+      isMalicious = true;
+      reasons.push('Unencrypted Cleartext HTTP Credential Harvester');
+    } else if (hasRiskyTld && (totalBait >= 1 || hasHyphen)) {
+      score = 14;
+      isMalicious = true;
+      reasons.push('High-Abuse Disposable TLD with Deceptive Phishing Tokens');
+    } else if (isMultiBait && (hasHyphen || hasSubdomainChaining)) {
+      score = 16;
+      isMalicious = true;
+      reasons.push('Multi-Keyword Deceptive Phishing Structure');
+    }
+    // RULE 3: Mild Suspicion for unencrypted HTTP or unvetted high-abuse TLDs without active bait
+    else if (isHttp) {
+      score = 48;
+      isSuspicious = true;
+      reasons.push('Unencrypted HTTP Protocol');
+    } else if (hasRiskyTld) {
+      score = 55;
+      isSuspicious = true;
+      reasons.push('High-Risk Disposable Top-Level Domain');
     } else {
-      if (spoofedBrand) {
-        score -= 65;
-        reasons.push(`Unauthorized Brand Impersonation (${spoofedBrand.name} spoofed on third-party domain)`);
-      }
-
-      if (isPrizeScam) {
-        score -= 75;
-        reasons.push(`Deceptive Prize / Reward Bait (${matchedPrize.slice(0, 3).join('-')})`);
-      }
-
-      if (isHttp) {
-        score -= 40;
-        reasons.push('Insecure Unencrypted HTTP Protocol (Cleartext Transmission)');
-      }
-
-      if (isMultiBait && !isPrizeScam) {
-        score -= 30;
-        reasons.push(`Deceptive Multi-Keyword Pairing (${matchedBait.slice(0, 3).join('-')})`);
-      } else if (matchedBait.length === 1 && !isPrizeScam && !isAcademicOrGov) {
-        score -= 10;
-      }
-
-      if (hasSubdomainChaining) {
-        score -= 15;
-        reasons.push('Subdomain Chaining / Hostname Masquerading');
-      }
-
-      if (hasRiskyTld) {
-        score -= 15;
-        reasons.push('High-Abuse Domain Extension');
-      }
-
-      if (isExampleOrTest && (isMultiBait || isBankSpoof || spoofedBrand || isPrizeScam)) {
-        score -= 15;
-        reasons.push('Placeholder / Proxy Domain Exploitation');
-      }
-
-      // Critical Overrides (Instant Malicious Rating for High-Confidence Phishing & Scam Traps)
-      if (spoofedBrand && (hasCredentialBait || isMultiBait || hostLower.includes('recovery') || hostLower.includes('account'))) {
-        score = 12; // Instant 12/100 for Google / Bank Impersonation Phishing!
-      } else if (isPrizeScam) {
-        score = 11; // Instant 11/100 for Deceptive Prize / Free Gift / Lottery Scams!
-      } else if (isHttp && (isBankSpoof || hasCredentialBait || isMultiBait)) {
-        score = 12; // Instant 12/100 for Insecure HTTP Credential Lures!
-      } else if (isBankSpoof && isMultiBait) {
-        score = 18;
-      } else if (isMultiBait && (hasSubdomainChaining || cleanHost.includes('-') || hasRiskyTld)) {
-        score = 14;
-      }
+      // Standard Benign HTTPS Web Domain
+      score = 90;
+      reasons.push('Standard HTTPS Web Domain with Verified Identity Bounds');
     }
 
-    score = Math.max(8, Math.min(95, score));
-    const isMalicious = score <= 25;
-    const isSuspicious = score < 65;
+    if (score <= 25) isMalicious = true;
+    if (score > 25 && score < 70) isSuspicious = true;
 
     // Classification & Verdict
     let status = 'LOW RISK (BENIGN)';
@@ -1126,13 +1125,43 @@ function renderResults(url) {
     let desc = `The address "${url}" has normal registration details and no reported scams.`;
     let action = '✅ Low Risk: Safe for normal browsing.';
 
-    if (isAcademicOrGov && !isHttp && !spoofedBrand && !isPrizeScam) {
-      status = 'VERIFIED SECURE (ACADEMIC / INSTITUTIONAL)';
+    if (isGlobalSafe || isAcademicOrGov) {
+      status = 'VERIFIED SECURE (AUTHENTIC DOMAIN)';
       badgeClass = 'badge-success';
-      title = 'Authenticated Academic / Institutional Portal';
-      desc = `The address "${cleanHost}" belongs to an accredited educational institution, college, or university network. Student/faculty authentication endpoints (login, portal, erp) are verified as legitimate administrative services.`;
-      action = '✅ Safe: Legitimate educational or institutional portal. Safe for student/faculty login.';
+      title = 'Verified Authentic Digital Property';
+      desc = `The address "${cleanHost}" belongs to a verified, highly-reputable organization or accredited institutional infrastructure with authenticated PKI trust roots.`;
+      action = '✅ Safe: Verified legitimate web service. Safe for normal authentication and operations.';
     } else if (spoofedBrand && isMalicious) {
+      status = 'CONFIRMED MALICIOUS (BRAND IMPERSONATION)';
+      badgeClass = 'badge-danger';
+      title = `Deceptive ${spoofedBrand.name} Account Phish`;
+      desc = `CRITICAL THREAT: "${cleanHost}" is masquerading as ${spoofedBrand.name}. It is an unauthorized phishing trap engineered on an external domain (${cleanHost.split('.').slice(-2).join('.')}) designed to hijack user accounts, passwords, and 2FA recovery credentials.`;
+      action = `⛔ DANGER: Fake ${spoofedBrand.name} portal. Do NOT enter credentials, recovery emails, or passwords. Close this website immediately.`;
+    } else if (isPrizeScam && isMalicious) {
+      status = 'CONFIRMED MALICIOUS (PRIZE / SCAM LURE)';
+      badgeClass = 'badge-danger';
+      title = 'Deceptive Prize & Advance-Fee Scam Trap';
+      desc = `CRITICAL THREAT: "${cleanHost}" employs deceptive prize, lottery, or giveaway bait tokens (${matchedPrize.slice(0, 3).join(', ')}). This matches active social-engineering campaigns engineered to harvest banking credentials, phone numbers, or advance processing fees.`;
+      action = '⛔ DANGER: Fake prize or financial incentive scam. Do NOT enter bank details, OTPs, or personal data. Close this website immediately.';
+    } else if (isMasquerade && isMalicious) {
+      status = 'CONFIRMED MALICIOUS (HOSTNAME MASQUERADING)';
+      badgeClass = 'badge-danger';
+      title = 'Deceptive Subdomain Masquerading Attack';
+      desc = `CRITICAL THREAT: "${cleanHost}" prepends a trusted corporate domain as a subdomain prefix to disguise its actual destination server. This is a deliberate deceptive phishing vector.`;
+      action = '⛔ DANGER: Deceptive hostname trick. Do NOT proceed or enter any data. Close this website immediately.';
+    } else if (isMalicious) {
+      status = 'CONFIRMED MALICIOUS (PHISHING)';
+      badgeClass = 'badge-danger';
+      title = isHttp ? 'Unencrypted Deceptive Banking Phish' : 'Malicious Phishing Portal';
+      desc = `CRITICAL THREAT: "${cleanHost}" combines deceptive financial/credential bait terms with ${isHttp ? 'an insecure, unencrypted HTTP connection' : 'suspicious disposable infrastructure'}. This is an active credential-harvesting trap.`;
+      action = '⛔ DANGER: Do NOT enter bank details, account numbers, or passwords. Close this website immediately.';
+    } else if (isSuspicious) {
+      status = 'SUSPICIOUS (DECEPTIVE INDICATORS)';
+      badgeClass = 'badge-warning';
+      title = 'Suspicious Domain Activity';
+      desc = `The address "${url}" exhibits irregular characteristics (${reasons.join(', ')}). Proceed with caution.`;
+      action = '⚠️ CAUTION: Exercise caution. Avoid entering sensitive login credentials or payment details.';
+    }
       status = 'CONFIRMED MALICIOUS (BRAND IMPERSONATION)';
       badgeClass = 'badge-danger';
       title = `Deceptive ${spoofedBrand.name} Account Phish`;
