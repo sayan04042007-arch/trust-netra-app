@@ -1162,30 +1162,6 @@ function renderResults(url) {
       desc = `The address "${url}" exhibits irregular characteristics (${reasons.join(', ')}). Proceed with caution.`;
       action = '⚠️ CAUTION: Exercise caution. Avoid entering sensitive login credentials or payment details.';
     }
-      status = 'CONFIRMED MALICIOUS (BRAND IMPERSONATION)';
-      badgeClass = 'badge-danger';
-      title = `Deceptive ${spoofedBrand.name} Account Phish`;
-      desc = `CRITICAL THREAT: "${cleanHost}" is masquerading as ${spoofedBrand.name}. It is an unauthorized phishing trap engineered on an external domain (${cleanHost.split('.').slice(-2).join('.')}) designed to hijack user accounts, passwords, and 2FA recovery credentials.`;
-      action = `⛔ DANGER: Fake ${spoofedBrand.name} portal. Do NOT enter credentials, recovery emails, or passwords. Close this website immediately.`;
-    } else if (isPrizeScam && isMalicious) {
-      status = 'CONFIRMED MALICIOUS (PRIZE / SCAM LURE)';
-      badgeClass = 'badge-danger';
-      title = 'Deceptive Prize & Advance-Fee Scam Trap';
-      desc = `CRITICAL THREAT: "${cleanHost}" employs deceptive prize, lottery, or giveaway bait tokens (${matchedPrize.slice(0, 3).join(', ')}). This matches active social-engineering campaigns engineered to harvest banking credentials, phone numbers, or advance processing fees.`;
-      action = '⛔ DANGER: Fake prize or financial incentive scam. Do NOT enter bank details, OTPs, or personal data. Close this website immediately.';
-    } else if (isMalicious) {
-      status = 'CONFIRMED MALICIOUS (PHISHING)';
-      badgeClass = 'badge-danger';
-      title = isHttp ? 'Unencrypted Deceptive Banking Phish' : 'Malicious Phishing Portal';
-      desc = `CRITICAL THREAT: "${cleanHost}" combines deceptive financial bait terms (${matchedBait.slice(0, 3).join(', ')}) with ${isHttp ? 'an insecure, unencrypted HTTP connection' : 'suspicious domain structure'}. This is an active credential-harvesting trap designed to intercept bank accounts and passwords.`;
-      action = '⛔ DANGER: Do NOT enter bank details, account numbers, or passwords. Close this website immediately.';
-    } else if (isSuspicious) {
-      status = 'SUSPICIOUS (DECEPTIVE INDICATORS)';
-      badgeClass = 'badge-warning';
-      title = 'Suspicious Domain Activity';
-      desc = `The address "${url}" exhibits irregular characteristics (${reasons.join(', ')}). Proceed with high caution.`;
-      action = '⚠️ CAUTION: Exercise caution. Avoid entering sensitive login credentials or payment details.';
-    }
 
     data = {
       score: score,
