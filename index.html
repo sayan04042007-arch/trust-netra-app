@@ -2752,6 +2752,38 @@ function startMessageAnalysis() {
     reasons.push('🔗 <b>Unverified External Redirection:</b> Embeds an external hyperlink (<code>' + extractedUrl + '</code>) intended for credential theft or malware download.');
   }
 
+  // ─── Category 6: SMISHING — "Forward this SMS/message" to a mobile number ───
+  // Real banks, telecom operators, and government agencies NEVER ask you to
+  // "forward" a message to a mobile number. This is a classic social-engineering
+  // trick used exclusively by fraudsters to harvest victim reports or spread scam.
+  const forwardSmishRegex = /forward\s+this\s+(sms|message|msg|otp)/i;
+  if (forwardSmishRegex.test(text)) {
+    urgency += 40;
+    reasons.push('📲 <b>CRITICAL — "Forward This SMS" Smishing Trick:</b> No legitimate bank, government body, or telecom operator ever instructs you to <em>forward an SMS to a mobile number</em>. This is exclusively used by fraudsters to manipulate victims — <strong>do NOT forward or call</strong>.');
+  }
+
+  // ─── Category 7: Fake Bank Helpline / Non-toll-free Mobile Numbers ───
+  // Official Indian bank helplines are toll-free starting 1800-xxx-xxxx.
+  // A message mentioning a bank (SBI, HDFC, ICICI, etc.) AND an ordinary
+  // 10-digit mobile number as the "helpline" is a confirmed smishing indicator.
+  const bankMentionRegex = /\b(sbi|hdfc|icici|axis|kotak|pnb|bob|union bank|canara|yes bank|idbi|rbl|indusind|federal bank|iob|central bank|uco bank)\b/i;
+  const mobileHelplineRegex = /(?:call|contact|helpline|forward|block|report)\s*(?:on\s*)?(?:\+91[-\s]?|0)?[6-9]\d{9}/i;
+  if (bankMentionRegex.test(text) && mobileHelplineRegex.test(text)) {
+    urgency += 30;
+    reasons.push('🏦 <b>Fake Bank Helpline (Mobile Number):</b> Real bank helplines are toll-free numbers like 1800-xxx-xxxx. This message pairs a bank name with an ordinary <em>mobile number</em> as a "helpline" — a hallmark of banking smishing (SMS phishing) attacks.');
+  }
+
+  // ─── Category 8: Impersonation of Official Indian Bank Sender IDs ───
+  // Official SBI SMS come from sender IDs like SBIBNK, SBIPSG, SBIPAY — never
+  // from suspicious instructions. If the message body contains known official bank
+  // transaction keywords BUT also asks to forward/call a mobile, it's smishing.
+  const officialTxnPattern = /\b(withdrawn|debited|credited|transaction|a\/c|a\/cx|balance\s+rs|available\s+balance|atm)\b/i;
+  const smishingActionPattern = /\b(forward\s+this|call\s+(?:0?[6-9]\d{9}|1800\d{6,7})|block\s+your\s+card)\b/i;
+  if (officialTxnPattern.test(text) && smishingActionPattern.test(text) && phones.length >= 2) {
+    urgency += 25;
+    reasons.push('💳 <b>Transaction Alert Impersonation:</b> The message mimics an official bank transaction SMS but includes suspicious instructions (forward/call with multiple phone numbers). Genuine bank alerts ONLY state transaction details — they never request forwarding or action via mobile number.');
+  }
+
   urgency = Math.min(98, Math.max(15, urgency));
 
   // Determine Risk Pill & Header Verdict
