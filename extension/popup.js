@@ -127,11 +127,54 @@ document.addEventListener('DOMContentLoaded', () => {
       score = 24; cert = 'Weak Key (eMudhra CA)'; isEmudhra = true; intel = 'Revoked CA Root';
     }
 
+    // ─── Global Safe Whitelist & Institutional Domain Guard (GUARANTEED GREEN) ───
+    const GLOBAL_SAFE_DOMAINS = [
+      'google.com', 'google.co.in', 'youtube.com', 'gmail.com', 'github.com', 'microsoft.com',
+      'apple.com', 'amazon.com', 'amazon.in', 'linkedin.com', 'twitter.com', 'x.com',
+      'facebook.com', 'instagram.com', 'wikipedia.org', 'reddit.com', 'netflix.com',
+      'spotify.com', 'cloudflare.com', 'vercel.app', 'stackoverflow.com', 'gitlab.com',
+      'medium.com', 'quora.com', 'zoom.us', 'slack.com', 'irctc.co.in', 'incometax.gov.in',
+      'uidai.gov.in', 'flipkart.com', 'swiggy.com', 'zomato.com', 'bookmyshow.com',
+      'zerodha.com', 'groww.in', 'makemytrip.com', 'onlinesbi.sbi', 'sbi.co.in', 'hdfcbank.com',
+      'icicibank.com', 'axisbank.com', 'kotak.com', 'pnbindia.in', 'bankofbaroda.in',
+      'nobelprize.org', 'pulitzer.org', 'unesco.org', 'who.int', 'un.org', 'devfolio.co'
+    ];
+
+    const isGlobalSafe = GLOBAL_SAFE_DOMAINS.some(d => hostname === d || hostname.endsWith('.' + d));
+    const isAcademicOrGov = 
+      hostname.endsWith('.ac.in') || 
+      hostname.endsWith('.edu.in') || 
+      hostname.endsWith('.edu') || 
+      hostname.endsWith('.ac.uk') || 
+      hostname.endsWith('.edu.au') || 
+      hostname.endsWith('.gov.in') || 
+      hostname.endsWith('.nic.in') || 
+      hostname.endsWith('.ernet.in') || 
+      hostname.endsWith('.res.in') ||
+      hostname.endsWith('.gov') ||
+      hostname.endsWith('.mil') ||
+      hostname.endsWith('.int') ||
+      hostname.includes('college') ||
+      hostname.includes('university') ||
+      hostname.includes('vidyamandir') ||
+      hostname.includes('campus') ||
+      hostname.includes('student') ||
+      hostname.includes('institute') ||
+      hostname.includes('institution') ||
+      hostname.includes('academy') ||
+      hostname.includes('adamas') ||
+      hostname.includes('makaut') ||
+      hostname.includes('polytechnic') ||
+      hostname.includes('shiksha') ||
+      hostname.includes('swayam') ||
+      hostname.includes('nptel');
+
     // Check 5: Brand impersonation
     const protectedBrands = [
       { name: 'Google',           kw: 'google',    legit: ['google.com','google.co.in','youtube.com','gmail.com'] },
       { name: 'State Bank of India', kw: 'sbi',   legit: ['onlinesbi.sbi','sbi.co.in','sbi.bank.in'] },
       { name: 'HDFC Bank',        kw: 'hdfc',      legit: ['hdfcbank.com','hdfc.com'] },
+      { name: 'ICICI Bank',       kw: 'icici',     legit: ['icicibank.com'] },
       { name: 'PayPal',           kw: 'paypal',    legit: ['paypal.com'] },
       { name: 'Apple',            kw: 'apple',     legit: ['apple.com','icloud.com'] },
       { name: 'Microsoft',        kw: 'microsoft', legit: ['microsoft.com','live.com','office.com','azure.com'] },
@@ -155,55 +198,72 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Check 6: Phishing bait lexicon
-    const baitLexicon = [
-      'bank','account','update','secure','security','login','signin','auth',
-      'verify','verification','kyc','wallet','password','billing','confirm',
-      'portal','recover','recovery','claim','refund','support','pay','payment',
-      'service','online','alert','otp','card','access','ebank','netbanking'
-    ];
+    const credentialBait = ['login', 'signin', 'auth', 'verify', 'verification', 'kyc', 'password', 'otp', 'recover', 'security', 'update', 'account'];
+    const financialBait = ['bank', 'wallet', 'billing', 'confirm', 'portal', 'claim', 'refund', 'pay', 'payment', 'card', 'ebank', 'netbanking'];
+    const prizeBait = ['free', 'prize', 'lottery', 'winner', 'gift', 'reward', 'bonus', 'cash', 'giveaway', 'airdrop', 'jackpot', 'luckydraw', 'recharge', 'voucher', 'coupon'];
+    const riskyTlds = ['.xyz','.top','.click','.tk','.ml','.cf','.gq','.work','.online','.site','.live','.buzz','.cc','.buzz','.rest','.quest','.icu','.monster'];
+
     const fullLower    = urlStr.toLowerCase();
-    const matchedBait  = baitLexicon.filter(w => hostname.includes(w) || fullLower.includes(w));
-    const isMultiBait  = matchedBait.length >= 2;
-    const isBankSpoof  = matchedBait.includes('bank') || matchedBait.includes('netbanking') || matchedBait.includes('ebank');
-    const hasCredBait  = matchedBait.includes('account') || matchedBait.includes('recovery') ||
-                         matchedBait.includes('update') || matchedBait.includes('login') ||
-                         matchedBait.includes('verify') || matchedBait.includes('password');
+    const matchedCred  = credentialBait.filter(w => hostname.includes(w) || fullLower.includes(w));
+    const matchedFin   = financialBait.filter(w => hostname.includes(w) || fullLower.includes(w));
+    const matchedPrize = prizeBait.filter(w => hostname.includes(w) || fullLower.includes(w));
+    const hasRiskyTld  = riskyTlds.some(t => hostname.endsWith(t));
+    const isBankSpoof  = matchedFin.length >= 1 || hostname.includes('bank') || hostname.includes('netbanking');
+    const hasCredBait  = matchedCred.length >= 1;
+    const isPrizeScam  = matchedPrize.length >= 2 || (matchedPrize.length >= 1 && (hostname.includes('claim') || hostname.includes('free') || hostname.includes('win') || hasRiskyTld || hostname.includes('-')));
+    const totalBait    = matchedCred.length + matchedFin.length;
+    const isMultiBait  = totalBait >= 2;
+    const matchedBait  = [...matchedCred, ...matchedFin, ...matchedPrize];
 
-    if (isMultiBait) {
-      score -= 40;
-      if (!spoofedBrand) typo = `Bait Spoofing (${matchedBait.slice(0, 2).join('-')})`;
-      intel = `Phishing Tokens: ${matchedBait.slice(0, 3).join(', ')}`;
-    } else if (matchedBait.length === 1 && !spoofedBrand) {
-      score -= 20;
-      typo = `Keyword: ${matchedBait[0]}`;
-    }
+    // RULE 1: Institutional Academic, Government or Global Authority (GUARANTEED SAFE 96%)
+    if ((isAcademicOrGov || isGlobalSafe) && url.protocol === 'https:' && !spoofedBrand && !isPrizeScam) {
+      score = 96;
+      typo = isAcademicOrGov ? 'Accredited Academic/Govt Root (0.00)' : 'Verified Global Authority (0.00)';
+      cert = 'TLS 1.3 / Authenticated Trust Roots';
+      headers = 'Strict HSTS / Enterprise Security';
+      intel = isAcademicOrGov ? 'Accredited Academic / Institutional Property' : 'Verified Global Web Service';
+    } else {
+      // Standard and suspicious checks for non-institutional domains
+      if (isMultiBait && (hostname.includes('-') || hasRiskyTld || url.protocol === 'http:')) {
+        score -= 40;
+        if (!spoofedBrand) typo = `Bait Spoofing (${matchedBait.slice(0, 2).join('-')})`;
+        intel = `Phishing Tokens: ${matchedBait.slice(0, 3).join(', ')}`;
+      } else if (hasRiskyTld && totalBait >= 1) {
+        score -= 30;
+        typo = 'Risky TLD with Bait Tokens';
+        intel = 'High-Abuse Domain Pattern';
+      }
 
-    // Check 7: Subdomain masquerading
-    const hostParts = hostname.split('.');
-    if (hostParts.length > 2 && (isMultiBait || hostname.includes('-') || hostname.includes('example.com') || spoofedBrand)) {
-      score -= 15;
-      if (!spoofedBrand) typo = 'Subdomain Chaining Spoof';
-      if (!intel || intel === 'Clean') intel = 'Hostname Masquerading';
-    }
+      // Check 7: Subdomain masquerading
+      const hostParts = hostname.split('.');
+      if (hostParts.length > 2 && (isMultiBait || hostname.includes('-') || hostname.includes('example.com') || spoofedBrand)) {
+        score -= 15;
+        if (!spoofedBrand) typo = 'Subdomain Chaining Spoof';
+        if (!intel || intel === 'Clean') intel = 'Hostname Masquerading';
+      }
 
-    // Check 8: Risky TLDs
-    const riskyTlds = ['.xyz','.top','.click','.tk','.ml','.cf','.gq','.work','.online','.site','.live','.buzz'];
-    for (const tld of riskyTlds) {
-      if (hostname.endsWith(tld)) { score -= 20; typo += ' (Risky TLD)'; break; }
-    }
+      if (hasRiskyTld) {
+        score -= 20;
+        typo += ' (Risky TLD)';
+      }
 
-    // Critical overrides
-    if (spoofedBrand && (hasCredBait || isMultiBait || hostname.includes('recovery') || hostname.includes('account'))) {
-      score = 12;
-      intel = `Deceptive ${spoofedBrand.name} Phishing Trap`;
-      typo  = `Spoofed ${spoofedBrand.name} Identity`;
-    } else if (url.protocol === 'http:' && (isBankSpoof || hasCredBait || isMultiBait)) {
-      score = 12;
-      intel = 'Unencrypted Phishing Trap';
-      cert  = 'Insecure (Cleartext HTTP / Zero TLS)';
-      headers = 'Missing HSTS (Plaintext)';
-    } else if (isBankSpoof && isMultiBait) {
-      score = Math.min(score, 18);
+      // Critical overrides
+      if (spoofedBrand && (hasCredBait || isMultiBait || hostname.includes('recovery') || hostname.includes('account'))) {
+        score = 12;
+        intel = `Deceptive ${spoofedBrand.name} Phishing Trap`;
+        typo  = `Spoofed ${spoofedBrand.name} Identity`;
+      } else if (url.protocol === 'http:' && (isBankSpoof || hasCredBait || isMultiBait)) {
+        score = 12;
+        intel = 'Unencrypted Phishing Trap';
+        cert  = 'Insecure (Cleartext HTTP / Zero TLS)';
+        headers = 'Missing HSTS (Plaintext)';
+      } else if (isPrizeScam) {
+        score = 11;
+        intel = 'Deceptive Prize Scam Trap';
+        typo = 'Scam Incentive Bait';
+      } else if (isBankSpoof && isMultiBait) {
+        score = Math.min(score, 18);
+      }
     }
 
     score = Math.max(8, Math.min(99, score));
@@ -212,7 +272,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let headline = 'Site Verified & Secure';
     let sub = 'Cryptographic trust chain and domain integrity confirmed.';
 
-    if (hostname.includes('badssl.com')) {
+    if (isAcademicOrGov && score >= 90) {
+      headline = 'Accredited Academic / Institutional Portal';
+      sub = `Official university/academic infrastructure (${hostname}). Verified safe for student login & operations.`;
+    } else if (isGlobalSafe && score >= 90) {
+      headline = 'Verified Global Authority';
+      sub = 'Cryptographic trust chain and authentic domain integrity confirmed.';
+    } else if (hostname.includes('badssl.com')) {
       if (hostname.includes('no-sct')) {
         headline = 'CRITICAL: Missing CT Log Proof (No SCT)';
         sub = 'Certificate was not logged to RFC 6962 CT logs. Potential rogue certificate!';

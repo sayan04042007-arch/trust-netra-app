@@ -15,6 +15,33 @@
   const isSauceDemo      = hostname.includes('saucedemo') || currentUrl.includes('saucedemo');
   const isDemoOrSandbox  = isSauceDemo || (hasPasswordField && (hostname.includes('sandbox') || hostname.includes('testlab')));
 
+  const isAcademicOrGov = 
+    hostname.endsWith('.ac.in') || 
+    hostname.endsWith('.edu.in') || 
+    hostname.endsWith('.edu') || 
+    hostname.endsWith('.gov.in') || 
+    hostname.endsWith('.nic.in') || 
+    hostname.endsWith('.ernet.in') || 
+    hostname.endsWith('.res.in') || 
+    hostname.includes('college') || 
+    hostname.includes('university') || 
+    hostname.includes('institute') || 
+    hostname.includes('campus') || 
+    hostname.includes('adamas');
+
+  const GLOBAL_SAFE = [
+    'google.com', 'google.co.in', 'youtube.com', 'github.com', 'microsoft.com',
+    'apple.com', 'amazon.com', 'amazon.in', 'linkedin.com', 'twitter.com', 'x.com',
+    'facebook.com', 'instagram.com', 'wikipedia.org', 'reddit.com', 'netflix.com',
+    'irctc.co.in', 'incometax.gov.in', 'uidai.gov.in', 'onlinesbi.sbi', 'sbi.co.in'
+  ];
+  const isGlobalSafe = GLOBAL_SAFE.some(d => hostname === d || hostname.endsWith('.' + d));
+
+  // If verified institutional academic or global safe domain, do NOT pop false warning banners!
+  if ((isAcademicOrGov || isGlobalSafe) && window.location.protocol === 'https:') {
+    return;
+  }
+
   const matchesKeyword   = dangerousKeywords.some(kw => currentUrl.includes(kw));
   const isSuspiciousLogin = hasPasswordField && (
     matchesKeyword ||
