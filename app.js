@@ -523,6 +523,59 @@ function renderResults(url) {
   document.getElementById('mHSTS').textContent = data.hsts;
   document.getElementById('mFlags').textContent = data.flags;
   document.getElementById('mClass').textContent = data.class;
+
+  // Update Dynamic Radar Polygon
+  const isSafe = data.score >= 80;
+  const isMid = data.score >= 50 && data.score < 80;
+  let s0 = isSafe ? 0.95 : (isMid ? 0.6 : 0.2);
+  let s1 = isSafe ? 0.92 : (data.ct && data.ct.includes('FAILED') ? 0.15 : (isMid ? 0.55 : 0.25));
+  let s2 = isSafe ? 0.96 : (data.forms && data.forms.includes('CRITICAL') ? 0.15 : (isMid ? 0.5 : 0.3));
+  let s3 = isSafe ? 0.90 : (isMid ? 0.6 : 0.25);
+  let s4 = isSafe ? 0.94 : (data.score < 30 ? 0.2 : 0.6);
+  let s5 = isSafe ? 0.95 : 0.85;
+
+  const cx = 120, cy = 120, maxR = 75;
+  const p0 = `${cx},${cy - maxR * s0}`;
+  const p1 = `${cx + maxR * s1 * 0.866},${cy - maxR * s1 * 0.5}`;
+  const p2 = `${cx + maxR * s2 * 0.866},${cy + maxR * s2 * 0.5}`;
+  const p3 = `${cx},${cy + maxR * s3}`;
+  const p4 = `${cx - maxR * s4 * 0.866},${cy + maxR * s4 * 0.5}`;
+  const p5 = `${cx - maxR * s5 * 0.866},${cy - maxR * s5 * 0.5}`;
+  const polyPoints = `${p0} ${p1} ${p2} ${p3} ${p4} ${p5}`;
+
+  const polyEl = document.getElementById('radarPolygon');
+  const radarTag = document.getElementById('radarProfileTag');
+  if (polyEl) {
+    polyEl.setAttribute('points', polyPoints);
+    if (isSafe) {
+      polyEl.style.stroke = 'var(--emerald)';
+      polyEl.style.fill = 'rgba(16, 185, 129, 0.25)';
+      if (radarTag) {
+        radarTag.textContent = 'Verified Secure Profile';
+        radarTag.style.color = 'var(--emerald)';
+        radarTag.style.borderColor = 'var(--emerald)';
+        radarTag.style.background = 'var(--emerald-glow)';
+      }
+    } else if (isMid) {
+      polyEl.style.stroke = 'var(--amber)';
+      polyEl.style.fill = 'rgba(245, 158, 11, 0.25)';
+      if (radarTag) {
+        radarTag.textContent = 'Caution / Elevated Risk';
+        radarTag.style.color = 'var(--amber)';
+        radarTag.style.borderColor = 'var(--amber)';
+        radarTag.style.background = 'var(--amber-glow)';
+      }
+    } else {
+      polyEl.style.stroke = 'var(--rose)';
+      polyEl.style.fill = 'rgba(244, 63, 94, 0.28)';
+      if (radarTag) {
+        radarTag.textContent = 'Critical Threat Vector';
+        radarTag.style.color = 'var(--rose)';
+        radarTag.style.borderColor = 'var(--rose)';
+        radarTag.style.background = 'var(--rose-glow)';
+      }
+    }
+  }
 }
 
 // ─── SMS / Message Analysis Engine ──────────────────────────────────────────
