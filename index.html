@@ -2733,15 +2733,21 @@ function startMessageAnalysis() {
   // Category 4: Financial Lures / Fake Lottery / Daily Income Schemes
   const lureKeywords = [
     // English
-    'lottery', 'reward', 'won', 'winner', 'prize', 'cashback', 'bonus', 'gift card', 'part time job', 'work from home', 'daily earn', 'daily income', 'subsidy', 'crore', 'lakh',
+    'lottery', 'reward', 'won', 'winner', 'prize', 'cashback', 'bonus', 'gift card',
+    'part time job', 'work from home', 'daily earn', 'daily income', 'subsidy',
+    'congratulations', 'you have won', 'lucky winner', 'claim now', 'claim your',
     // Hinglish
-    'lottery', 'inam', 'jeeta', 'lucky draw', 'cashback', 'crore', 'lakh', 'kamaye', 'part time', 'daily kamai', 'roj kamao', 'muft', 'free offer',
+    'inam', 'jeeta', 'lucky draw', 'crore', 'lakh', 'kamaye', 'daily kamai', 'muft', 'free offer',
     // Devanagari
     'लॉटरी', 'इनाम', 'जीता', 'विजेता', 'लकी ड्रा', 'कैशबैक', 'करोड़', 'लाख', 'कमाएं', 'घर बैठे', 'पार्ट टाइम', 'मुफ्त',
     // Bengali, Tamil, Telugu
     'লটারি', 'পুরস্কার', 'জিতেছেন', 'பரிசு', 'வெற்றி', 'లాటరీ', 'బహుమతి'
   ];
-  if (lureKeywords.some(kw => lower.includes(kw))) {
+  const lureHits = lureKeywords.filter(kw => lower.includes(kw));
+  if (lureHits.length >= 2) {
+    urgency += 30;
+    reasons.push('🎁 <b>High-Confidence Financial Lure Scam:</b> Multiple prize/lottery/reward keywords detected — classic advance-fee or lottery scam pattern.');
+  } else if (lureHits.length === 1) {
     urgency += 20;
     reasons.push('🎁 <b>Unsolicited Financial Lure:</b> Fake lottery prize, work-from-home lure, or unverified cash reward scheme.');
   }
