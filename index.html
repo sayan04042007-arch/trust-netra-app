@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TrustNetra AI — Web Threat Intelligence & Indic Smishing Defense</title>
-  <meta name="description" content="AI-powered web threat intelligence, cryptographic certificate auditing, and multilingual Indic SMS smishing defense.">
+  <title>TrustNetra AI | Verify before you trust</title>
+  <meta name="description" content="Investigate suspicious links, domains, and SMS messages. Evidence-backed digital trust reports with zero data collection.">
   
-  <!-- Modern Clean Typography -->
+  <!-- Modern Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@900&display=swap" rel="stylesheet">
   
-  <!-- Hybrid Cyber Command Center & Modern SaaS Stylesheet -->
+  <!-- VeriQ-Inspired High-Performance Stylesheet -->
   <link rel="stylesheet" href="/styles.css">
 
   <!-- Immediate Theme Initializer -->
@@ -26,456 +26,625 @@
 </head>
 <body>
 
-  <!-- Ambient Cyber Glow -->
-  <div class="ambient-glow"></div>
-
-  <!-- Top Navigation Header -->
-  <header class="navbar">
-    <div class="container navbar-inner">
-      <a class="brand-link" href="/">
-        <div class="brand-logo-shield">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Top Header Navigation -->
+  <header class="site-header">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+      <a aria-label="TrustNetra home" href="/" style="display:flex; align-items:center; gap:10px;">
+        <span class="brand" style="display:flex; align-items:center; gap:10px;">
+          <!-- Custom Shield / Netra Logo -->
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--signal)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
             <circle cx="12" cy="11" r="3"/>
           </svg>
-        </div>
-        <span class="brand-text">TrustNetra AI</span>
+          <span class="brand-name" style="font-weight:700; font-size:18px; letter-spacing:-0.02em;">TrustNetra</span>
+        </span>
       </a>
 
-      <!-- Navigation Controls -->
-      <div class="nav-badges">
-        <a class="badge-live-ci" href="https://github.com/sayan04042007-arch/trust-netra-app/actions" target="_blank" rel="noopener">
-          <span class="badge-dot"></span>
-          <span>16/16 CI TESTS PASSING</span>
-        </a>
-
-        <!-- Dark / Light Theme Switcher -->
-        <button id="themeToggleBtn" aria-label="Toggle theme" class="theme-toggle-btn" type="button" onclick="toggleTheme()">
+      <!-- Right Controls -->
+      <div class="controls" style="display:flex; align-items:center; gap:10px;">
+        <!-- Theme Toggle -->
+        <button id="themeToggleBtn" aria-label="Toggle color theme" class="round" type="button" onclick="toggleTheme()">
           <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg>
         </button>
 
-        <a class="scenario-chip" href="https://github.com/sayan04042007-arch/trust-netra-app" target="_blank" rel="noopener" style="padding:7px 16px; font-weight:600;">
+        <a class="pill pill-dark hide-sm" href="#investigate-composer">
+          Investigate <span class="dot"></span>
+        </a>
+        <a class="pill pill-light hide-sm" href="https://github.com/sayan04042007-arch/trust-netra-app" target="_blank" rel="noopener">
           GitHub
         </a>
       </div>
     </div>
   </header>
 
-  <!-- Main Hero & Threat Command Center -->
-  <main class="container">
-    <section class="hero-section">
-      <div class="hero-pill-badge">
-        <span>🛡️ CYBER DEFENSE INTELLIGENCE · INDIC NLP ENGINE</span>
+  <!-- Main Hero & Investigation Stage -->
+  <main id="main-content">
+    <section aria-labelledby="hero-title" class="hero container">
+      
+      <!-- Editorial Intro Copy -->
+      <div class="hero-intro">
+        <div>
+          <p class="intro-eyebrow">Digital Trust Intelligence · Indic NLP Engine</p>
+          <h1 class="hero-title" id="hero-title">Verify before you <em>trust.</em></h1>
+        </div>
+        <div class="hero-intro-copy">
+          <p>Behind every link, domain, and message is a story. TrustNetra connects the signals so you can see what deserves a second look.</p>
+          <a class="intro-link" href="#veriq-intro">
+            Meet TrustNetra 
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg>
+          </a>
+        </div>
       </div>
-      
-      <h1 class="hero-heading">
-        Real-Time Threat Intelligence.<br>
-        Verify before you <em>trust.</em>
-      </h1>
-      
-      <p class="hero-subtext">
-        Investigate suspicious URLs, domains, and coercive SMS fraud. Evidence-backed deterministic risk scoring with 100% on-device client privacy.
-      </p>
 
-      <!-- The Command Bar (Sleek SaaS + Cyber Glow) -->
-      <div class="command-box">
-        <!-- Switcher Tabs -->
-        <div class="command-tabs">
-          <button id="tabUrlBtn" class="tab-btn active" type="button" onclick="switchScanMode('url')">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-            <span>Website Link / Domain</span>
-          </button>
-          <button id="tabMsgBtn" class="tab-btn" type="button" onclick="switchScanMode('msg')">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
-            <span>SMS / WhatsApp Message</span>
-          </button>
+      <!-- Live Interactive Stage with Evidence Graph -->
+      <div class="stage hero-stage landing-hero-stage">
+        <div aria-hidden="true" class="signal-horizon">
+          <span></span><span></span><span></span>
         </div>
 
-        <!-- URL Scanner View -->
-        <div id="urlScannerBox">
-          <div class="command-input-row">
-            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-            <input id="urlInput" class="target-input" autocomplete="off" spellcheck="false" placeholder="Enter target URL or domain (e.g. sbi-kyc-verify.online)" onkeydown="if(event.key==='Enter') startScan();">
-            <button class="action-scan-btn" type="button" onclick="startScan()">
-              <span>Analyze Target</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        <div class="stage-top">
+          <span>Live evidence graph · hover a node</span>
+          <span>Passive on-device inspection</span>
+        </div>
+
+        <!-- SVG Evidence Graph with Flowing Packets -->
+        <div class="hero-graph-slot">
+          <div class="evidence-graph">
+            <svg aria-label="Real-time evidence graph for threat analysis" role="img" viewBox="0 0 900 360">
+              <g style="transform:translate(0px, 0px); transition:transform 600ms cubic-bezier(.16,1,.3,1)">
+                <!-- Edge 1 -->
+                <g>
+                  <path class="g-edge" d="M70 110 C 160 110, 160 50, 250 50" id="edge-url-hop"></path>
+                  <circle class="g-packet" r="2.6"><animateMotion begin="1.68s" dur="2.6s" repeatCount="indefinite"><mpath href="#edge-url-hop"></mpath></animateMotion></circle>
+                </g>
+                <!-- Edge 2 -->
+                <g>
+                  <path class="g-edge" d="M250 50 C 330 50, 330 150, 410 150" id="edge-hop-tls"></path>
+                  <circle class="g-packet" r="2.6"><animateMotion begin="1.68s" dur="2.6s" repeatCount="indefinite"><mpath href="#edge-hop-tls"></mpath></animateMotion></circle>
+                </g>
+                <!-- Edge 3 -->
+                <g>
+                  <path class="g-edge" d="M410 150 C 500 150, 500 70, 590 70" id="edge-tls-ct"></path>
+                  <circle class="g-packet" r="2.6"><animateMotion begin="1.49s" dur="2.6s" repeatCount="indefinite"><mpath href="#edge-tls-ct"></mpath></animateMotion></circle>
+                </g>
+                <!-- Edge 4 -->
+                <g>
+                  <path class="g-edge" d="M70 110 C 115 110, 115 215, 160 215" id="edge-url-age"></path>
+                  <circle class="g-packet" r="2.6"><animateMotion begin="1.68s" dur="2.6s" repeatCount="indefinite"><mpath href="#edge-url-age"></mpath></animateMotion></circle>
+                </g>
+                <!-- Edge 5 -->
+                <g>
+                  <path class="g-edge" d="M160 215 C 270 215, 270 255, 380 255" id="edge-age-form"></path>
+                  <circle class="g-packet bad" r="2.6"><animateMotion begin="1.87s" dur="2.6s" repeatCount="indefinite"><mpath href="#edge-age-form"></mpath></animateMotion></circle>
+                </g>
+                <!-- Edge 6 -->
+                <g>
+                  <path class="g-edge" d="M410 150 C 395 150, 395 255, 380 255" id="edge-tls-form"></path>
+                  <circle class="g-packet bad" r="2.6"><animateMotion begin="1.87s" dur="2.6s" repeatCount="indefinite"><mpath href="#edge-tls-form"></mpath></animateMotion></circle>
+                </g>
+                <!-- Edge 7 -->
+                <g>
+                  <path class="g-edge" d="M380 255 C 515 255, 515 215, 650 215" id="edge-form-feed"></path>
+                  <circle class="g-packet bad" r="2.6"><animateMotion begin="0.24s" dur="3.2s" repeatCount="indefinite"><mpath href="#edge-form-feed"></mpath></animateMotion></circle>
+                </g>
+                <!-- Edge 8 -->
+                <g>
+                  <path class="g-edge" d="M590 70 C 705 70, 705 150, 820 150" id="edge-ct-verdict"></path>
+                  <circle class="g-packet bad" r="2.6"><animateMotion begin="0.07s" dur="3.8s" repeatCount="indefinite"><mpath href="#edge-ct-verdict"></mpath></animateMotion></circle>
+                </g>
+                <!-- Edge 9 -->
+                <g>
+                  <path class="g-edge" d="M650 215 C 735 215, 735 150, 820 150" id="edge-feed-verdict"></path>
+                  <circle class="g-packet bad" r="2.6"><animateMotion begin="0.81s" dur="3.2s" repeatCount="indefinite"><mpath href="#edge-feed-verdict"></mpath></animateMotion></circle>
+                </g>
+
+                <!-- Graph Nodes -->
+                <g class="g-node tone-bad" tabindex="0">
+                  <circle class="g-halo" cx="70" cy="110" r="17"></circle>
+                  <circle class="g-dot" cx="70" cy="110" r="7"></circle>
+                  <text text-anchor="start" x="84" y="98">sbi-kyc-verify.online</text>
+                </g>
+                <g class="g-node tone-info" tabindex="0">
+                  <circle class="g-halo" cx="250" cy="50" r="16"></circle>
+                  <circle class="g-dot" cx="250" cy="50" r="6"></circle>
+                  <text text-anchor="start" x="264" y="38">302 → /netbanking</text>
+                </g>
+                <g class="g-node tone-ok" tabindex="0">
+                  <circle class="g-halo" cx="410" cy="150" r="16"></circle>
+                  <circle class="g-dot" cx="410" cy="150" r="6"></circle>
+                  <text text-anchor="start" x="424" y="138">TLS 1.3 · valid lock</text>
+                </g>
+                <g class="g-node tone-ok" tabindex="0">
+                  <circle class="g-halo" cx="590" cy="70" r="16"></circle>
+                  <circle class="g-dot" cx="590" cy="70" r="6"></circle>
+                  <text text-anchor="start" x="604" y="58">CT · RFC 6962</text>
+                </g>
+                <g class="g-node tone-warn" tabindex="0">
+                  <circle class="g-halo" cx="160" cy="215" r="16"></circle>
+                  <circle class="g-dot" cx="160" cy="215" r="6"></circle>
+                  <text text-anchor="start" x="174" y="203">RDAP · 4 hours old</text>
+                </g>
+                <g class="g-node tone-bad" tabindex="0">
+                  <circle class="g-halo" cx="380" cy="255" r="16"></circle>
+                  <circle class="g-dot" cx="380" cy="255" r="6"></circle>
+                  <text text-anchor="start" x="394" y="243">form → credential exfil</text>
+                </g>
+                <g class="g-node tone-bad" tabindex="0">
+                  <circle class="g-halo" cx="650" cy="215" r="16"></circle>
+                  <circle class="g-dot" cx="650" cy="215" r="6"></circle>
+                  <text text-anchor="start" x="664" y="203">Brand Spoof · SBI</text>
+                </g>
+                <g class="g-node tone-bad" tabindex="0">
+                  <circle class="g-halo" cx="820" cy="150" r="20"></circle>
+                  <circle class="g-dot" cx="820" cy="150" r="10"></circle>
+                  <text text-anchor="end" x="804" y="138">High Risk (12%)</text>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <!-- The Investigation Composer Box -->
+        <div id="investigate-composer" class="composer" data-mode="url">
+          <!-- Slide Tabs -->
+          <div aria-label="What to investigate" class="tabs slide-group" role="tablist">
+            <button id="tabUrlBtn" aria-selected="true" role="tab" type="button" onclick="switchScanMode('url')">
+              <span class="slide-pill"></span>Link or domain
+            </button>
+            <button id="tabMsgBtn" aria-selected="false" role="tab" type="button" onclick="switchScanMode('msg')">
+              Message or SMS
             </button>
           </div>
 
-          <!-- Quick Scenario Benchmarks (CyberTrust style) -->
-          <div class="command-chips">
-            <span class="chip-label">Quick Benchmarks:</span>
-            <button class="scenario-chip" type="button" onclick="loadScenario('adamas')">🎓 Adamas University (.ac.in)</button>
-            <button class="scenario-chip" type="button" onclick="loadScenario('sbi')">🚨 Fake SBI NetBanking (.online)</button>
-            <button class="scenario-chip" type="button" onclick="loadScenario('incometax')">🏛️ Income Tax Portal (.gov.in)</button>
-            <button class="scenario-chip" type="button" onclick="loadScenario('job')">⚠️ Student Internship Scam</button>
-            <button class="scenario-chip" type="button" onclick="loadScenario('emudhra')">💥 Weak Key CA Test</button>
-          </div>
-        </div>
-
-        <!-- Message Scanner View -->
-        <div id="messageScannerView" style="display:none;">
-          <div class="command-input-row" style="flex-direction:column; align-items:stretch; padding:12px 16px;">
-            <div style="display:flex; align-items:flex-start; gap:12px;">
-              <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="margin-top:4px;"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
-              <textarea id="msgInput" class="target-textarea" placeholder="Paste suspicious SMS or message in English, Hindi, Bengali, Tamil, Telugu, Hinglish, etc..."></textarea>
-            </div>
-            <div style="display:flex; justify-content:flex-end; margin-top:8px;">
-              <button class="action-scan-btn" type="button" onclick="startMessageAnalysis()">
-                <span>Scan Threat Pattern</span>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          <!-- URL Scanner Mode -->
+          <div id="urlScannerBox">
+            <div class="composer-row">
+              <label class="field" for="urlInput">
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+                <span class="sr-only">Suspicious link or domain</span>
+                <input id="urlInput" autocomplete="off" spellcheck="false" inputmode="url" placeholder="Paste a suspicious link or domain (e.g. sbi-kyc-verify.online)" onkeydown="if(event.key==='Enter') startScan();">
+              </label>
+              <button class="pill pill-signal" type="button" onclick="startScan()">
+                Investigate 
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
               </button>
             </div>
+
+            <!-- Quick Example Chips -->
+            <div class="composer-foot">
+              <span class="chips">
+                <button class="chip" type="button" onclick="loadScenario('adamas')">Adamas University (.ac.in)</button>
+                <button class="chip" type="button" onclick="loadScenario('sbi')">Fake SBI NetBanking</button>
+                <button class="chip" type="button" onclick="loadScenario('incometax')">Income Tax Portal (.gov.in)</button>
+                <button class="chip" type="button" onclick="loadScenario('job')">Student Internship Scam</button>
+              </span>
+              <span>Passive checks · 100% on-device · never asks for passwords</span>
+            </div>
           </div>
 
-          <div class="command-chips">
-            <span class="chip-label">Smishing Presets:</span>
-            <button class="scenario-chip" type="button" onclick="loadMsgPreset('sbi')">📲 Fake SBI ATM Debit Alert</button>
-            <button class="scenario-chip" type="button" onclick="loadMsgPreset('real_sbi')">🛡️ Genuine Bank Notification</button>
-            <button class="scenario-chip" type="button" onclick="loadMsgPreset('hindi')">🇮🇳 Hindi Account Threat</button>
-            <button class="scenario-chip" type="button" onclick="loadMsgPreset('power')">⚡ Bijli Disconnection Notice</button>
-            <button class="scenario-chip" type="button" onclick="loadMsgPreset('prize')">🎁 Lottery & Scratch Card</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Real-Time Inspection HUD Progress Bar -->
-      <div id="scanProgress">
-        <div class="progress-header-row">
-          <span id="progressText" class="progress-status-text">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-            1/4: DNS analysis & typosquatting detection...
-          </span>
-          <span id="progressPct" class="progress-pct-val">15%</span>
-        </div>
-        <div class="progress-track-bar">
-          <div id="progressFill" class="progress-fill-bar"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- URL SCAN RESULTS: Cyber SOC Command Dashboard -->
-    <section id="resultsSection">
-      <div class="dashboard-grid">
-        
-        <!-- Left Column: Core Assessment & Pillars -->
-        <div class="card-panel">
-          <div class="assessment-header">
-            <!-- Large Crisp Score Ring -->
-            <div id="gaugeCircle" class="score-meter-wrap">
-              <span id="gaugeScore" class="meter-num">96%</span>
-              <span class="meter-lbl">Trust Score</span>
+          <!-- Message Scanner Mode -->
+          <div id="messageScannerView" style="display:none;">
+            <div class="composer-row" style="flex-direction:column; align-items:stretch;">
+              <label class="field" for="msgInput" style="height:auto; min-height:80px; align-items:flex-start; padding:12px 18px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top:4px;"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path></svg>
+                <textarea id="msgInput" class="composer-textarea" placeholder="Paste a suspicious SMS, email, or message in English, Hindi, Bengali, Tamil, Telugu, etc."></textarea>
+              </label>
+              <div style="display:flex; justify-content:flex-end; margin-top:12px;">
+                <button class="pill pill-signal" type="button" onclick="startMessageAnalysis()">
+                  Analyze Message 
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </button>
+              </div>
             </div>
 
-            <!-- Verdict Details -->
-            <div style="flex:1;">
+            <!-- Quick SMS Preset Chips -->
+            <div class="composer-foot">
+              <span class="chips">
+                <button class="chip" type="button" onclick="loadMsgPreset('sbi')">Fake SBI ATM Smishing SMS</button>
+                <button class="chip" type="button" onclick="loadMsgPreset('real_sbi')">Genuine SBI Alert SMS</button>
+                <button class="chip" type="button" onclick="loadMsgPreset('hindi')">Hindi Account Threat</button>
+                <button class="chip" type="button" onclick="loadMsgPreset('power')">Electricity Disconnection Panic</button>
+              </span>
+              <span>Multilingual Indic NLP · 8 Scripts Supported</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Investigation Progress Track (Hidden by default) -->
+      <div id="scanProgress" class="container">
+        <div class="progress-head">
+          <span id="progressText">1/4: DNS analysis & typosquatting detection...</span>
+          <span id="progressPct" class="mono">15%</span>
+        </div>
+        <div class="progress-track">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+      </div>
+
+      <!-- URL Results Presentation Card (Hidden by default) -->
+      <section id="resultsSection" class="container">
+        <article class="result-card">
+          <div class="result-header">
+            <!-- Score Gauge -->
+            <div class="score-circle" id="gaugeCircle">
+              <span class="score-number" id="gaugeScore">96%</span>
+              <span class="score-label">Trust Score</span>
+            </div>
+            
+            <!-- Verdict Text Details -->
+            <div>
               <span id="verdictBadge" class="verdict-badge badge-success">VERIFIED SAFE</span>
-              <h2 id="verdictTitle" class="assessment-title">Verified Authentic Destination</h2>
-              <p id="verdictDesc" class="assessment-desc">This domain satisfies strict cryptographic root standards and displays authentic identity attribution.</p>
-              <div id="actionCallout" class="advisory-box">
+              <h2 id="verdictTitle" class="verdict-headline">Verified Authentic Destination</h2>
+              <p id="verdictDesc" class="verdict-summary">This domain satisfies strict cryptographic root standards and displays authentic identity attribution.</p>
+              <div id="actionCallout" class="advice-banner">
                 <b>Recommended Action:</b> Safe for standard navigation.
               </div>
+
+              <!-- Victim Incident Response & Triage Guide -->
+              <div class="triage-section">
+                <div class="triage-head">
+                  <div>
+                    <span class="intro-eyebrow" style="color:var(--signal);">🛡️ What Should You Do? (Emergency Triage)</span>
+                    <h3 style="font-size:16px; font-weight:600; margin-top:2px;">Select what happened for instant recovery steps:</h3>
+                  </div>
+                  <div class="emergency-badge">
+                    <span>National Cyber Crime Helpline: <b>1930</b></span>
+                  </div>
+                </div>
+
+                <div class="triage-pills">
+                  <button class="triage-pill active" type="button" onclick="selectTriageStep(0, this)">1. I only viewed it</button>
+                  <button class="triage-pill" type="button" onclick="selectTriageStep(1, this)">2. I clicked the link</button>
+                  <button class="triage-pill" type="button" onclick="selectTriageStep(2, this)">3. I entered password / MPIN</button>
+                  <button class="triage-pill" type="button" onclick="selectTriageStep(3, this)">4. I shared OTP / forwarded SMS</button>
+                  <button class="triage-pill" type="button" onclick="selectTriageStep(4, this)">5. I sent money / approved UPI</button>
+                </div>
+
+                <div id="triageActionDetail" class="triage-detail-box"></div>
+              </div>
             </div>
           </div>
 
-          <!-- Signal Factor Breakdown Grid -->
-          <div style="border-top:1px solid var(--border-subtle); padding-top:20px;">
-            <p class="section-eyebrow">DETAILED FORENSIC TELEMETRY</p>
+          <!-- Factor Pillars Breakdown -->
+          <div>
+            <p class="intro-eyebrow" style="margin-bottom:12px;">Inspection Signals Breakdown</p>
             <div class="pillars-grid">
-              <div class="pillar-item">
-                <span class="pillar-k">Brand & Authority</span>
-                <span id="mBrand" class="pillar-v">Verified Entity</span>
+              <div class="pillar-card">
+                <span class="pillar-label">Brand & Authority</span>
+                <span class="pillar-value" id="mBrand">Verified Entity</span>
               </div>
-              <div class="pillar-item">
-                <span class="pillar-k">Typosquatting Risk</span>
-                <span id="mTypo" class="pillar-v" style="font-family:var(--font-mono);">Clean (0.00)</span>
+              <div class="pillar-card">
+                <span class="pillar-label">Typosquatting Risk</span>
+                <span class="pillar-value mono" id="mTypo">Clean (0.00)</span>
               </div>
-              <div class="pillar-item">
-                <span class="pillar-k">Domain Age</span>
-                <span id="mAge" class="pillar-v">Established Authority</span>
+              <div class="pillar-card">
+                <span class="pillar-label">Domain Age</span>
+                <span class="pillar-value" id="mAge">Established Authority</span>
               </div>
-              <div class="pillar-item">
-                <span class="pillar-k">TLD Reputation</span>
-                <span id="mTLD" class="pillar-v" style="font-family:var(--font-mono);">.ac.in</span>
+              <div class="pillar-card">
+                <span class="pillar-label">TLD Reputation</span>
+                <span class="pillar-value mono" id="mTLD">.ac.in</span>
               </div>
-              <div class="pillar-item">
-                <span class="pillar-k">TLS & Encryption</span>
-                <span id="mPadlock" class="pillar-v">Valid Padlock</span>
+              <div class="pillar-card">
+                <span class="pillar-label">TLS & Certificate</span>
+                <span class="pillar-value" id="mPadlock">Valid Padlock</span>
               </div>
-              <div class="pillar-item">
-                <span class="pillar-k">Certificate Authority</span>
-                <span id="mCA" class="pillar-v">Sectigo Academic Root</span>
+              <div class="pillar-card">
+                <span class="pillar-label">Certificate Authority</span>
+                <span class="pillar-value" id="mCA">Sectigo Academic Root</span>
               </div>
-              <div class="pillar-item">
-                <span class="pillar-k">RFC 6962 CT Logs</span>
-                <span id="mCT" class="pillar-v" style="font-family:var(--font-mono);">RFC 6962 Logged</span>
+              <div class="pillar-card">
+                <span class="pillar-label">CT Log Monitoring</span>
+                <span class="pillar-value mono" id="mCT">RFC 6962 Logged</span>
               </div>
-              <div class="pillar-item">
-                <span class="pillar-k">DOM Sink Form Check</span>
-                <span id="mForms" class="pillar-v">CLEAN (Origin Bound)</span>
+              <div class="pillar-card">
+                <span class="pillar-label">DOM Sink Form Check</span>
+                <span class="pillar-value" id="mForms">CLEAN (Origin Bound)</span>
               </div>
-              <div class="pillar-item">
-                <span class="pillar-k">HSTS Transport</span>
-                <span id="mHSTS" class="pillar-v" style="font-family:var(--font-mono);">ENABLED</span>
+              <div class="pillar-card">
+                <span class="pillar-label">HSTS & Transport</span>
+                <span class="pillar-value mono" id="mHSTS">ENABLED</span>
               </div>
-              <div class="pillar-item">
-                <span class="pillar-k">Security Grade</span>
-                <span id="mGrade" class="pillar-v">Grade A</span>
+              <div class="pillar-card">
+                <span class="pillar-label">Security Grade</span>
+                <span class="pillar-value" id="mGrade">Grade A</span>
               </div>
-              <div class="pillar-item">
-                <span class="pillar-k">Classification</span>
-                <span id="mClass" class="pillar-v">Accredited Institution</span>
+              <div class="pillar-card">
+                <span class="pillar-label">Threat Classification</span>
+                <span class="pillar-value" id="mClass">Accredited Institution</span>
               </div>
-              <div class="pillar-item">
-                <span class="pillar-k">Community Flags</span>
-                <span id="mFlags" class="pillar-v" style="font-family:var(--font-mono);">0 Security Flags</span>
+              <div class="pillar-card">
+                <span class="pillar-label">Community Flags</span>
+                <span class="pillar-value mono" id="mFlags">0 Security Flags</span>
               </div>
             </div>
           </div>
 
-          <!-- Metadata Footer -->
-          <div style="display:flex; flex-wrap:wrap; gap:20px; font-size:12px; color:var(--text-muted); margin-top:20px; padding-top:16px; border-top:1px solid var(--border-subtle);">
-            <span>Timestamp: <b id="metaTimestamp" style="color:var(--text-secondary);">Just now</b></span>
-            <span>Confidence: <b id="metaConfidence" style="color:var(--text-secondary);">98% Deterministic</b></span>
-            <span>Proof Sources: <b id="metaSources" style="color:var(--text-secondary);">RFC 6962 CT Logs · Heuristic Rules</b></span>
+          <!-- Metadata Strip -->
+          <div class="meta-strip">
+            <span>Timestamp: <b id="metaTimestamp">Just now</b></span>
+            <span>Confidence: <b id="metaConfidence">98% Deterministic</b></span>
+            <span>Proof Sources: <b id="metaSources">Certificate Transparency Logs · RFC 6962</b></span>
           </div>
-        </div>
+        </article>
+      </section>
 
-        <!-- Right Column: Interactive Multi-Axis Radar HUD -->
-        <div class="card-panel radar-sidebar-card">
-          <div style="width:100%;">
-            <span class="radar-title">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
-              Multidimensional Radar
-            </span>
-          </div>
-
-          <div class="radar-wrap">
-            <svg class="radar-svg" viewBox="0 0 240 240">
-              <!-- Radar Rings -->
-              <circle cx="120" cy="120" r="95" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-              <circle cx="120" cy="120" r="70" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-              <circle cx="120" cy="120" r="45" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-              <circle cx="120" cy="120" r="20" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-              
-              <!-- Radar Axes -->
-              <line x1="120" y1="25" x2="120" y2="215" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-              <line x1="38" y1="72" x2="202" y2="168" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-              <line x1="38" y1="168" x2="202" y2="72" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-
-              <!-- Axis Labels -->
-              <text x="120" y="16" fill="var(--text-muted)" font-size="10" font-weight="700" text-anchor="middle">IDENTITY</text>
-              <text x="212" y="70" fill="var(--text-muted)" font-size="10" font-weight="700" text-anchor="start">TLS / CT</text>
-              <text x="212" y="174" fill="var(--text-muted)" font-size="10" font-weight="700" text-anchor="start">FORMS</text>
-              <text x="120" y="232" fill="var(--text-muted)" font-size="10" font-weight="700" text-anchor="middle">AGE</text>
-              <text x="28" y="174" fill="var(--text-muted)" font-size="10" font-weight="700" text-anchor="end">TLD</text>
-              <text x="28" y="70" fill="var(--text-muted)" font-size="10" font-weight="700" text-anchor="end">CLEAN</text>
-
-              <!-- Dynamic Threat Polygon -->
-              <polygon id="radarPolygon" points="120,40 180,80 180,160 120,200 60,160 60,80" fill="rgba(16, 185, 129, 0.25)" stroke="var(--emerald)" stroke-width="2" style="transition: all 0.5s ease;"/>
-            </svg>
-          </div>
-
-          <div id="radarProfileTag" class="radar-tag-badge">
-            Verified Secure Profile
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Incident Response & Emergency Triage Guide -->
-      <div class="triage-card">
-        <div class="triage-header-row">
-          <div>
-            <span class="triage-eyebrow">🚨 EMERGENCY INCIDENT RESPONSE & TRIAGE</span>
-            <h3 class="triage-heading">Did you interact with this link? Select your situation:</h3>
-          </div>
-          <div class="helpline-pill">
-            <span>National Cyber Crime Helpline: <b>1930</b></span>
-          </div>
-        </div>
-
-        <div class="triage-selector-bar">
-          <button class="triage-choice-btn active" type="button" onclick="selectTriageStep(0, this)">1. I only viewed it</button>
-          <button class="triage-choice-btn" type="button" onclick="selectTriageStep(1, this)">2. I clicked the link</button>
-          <button class="triage-choice-btn" type="button" onclick="selectTriageStep(2, this)">3. I entered password / MPIN</button>
-          <button class="triage-choice-btn" type="button" onclick="selectTriageStep(3, this)">4. I shared OTP / forwarded SMS</button>
-          <button class="triage-choice-btn" type="button" onclick="selectTriageStep(4, this)">5. I approved UPI payment</button>
-        </div>
-
-        <div id="triageActionDetail" class="triage-instructions-box"></div>
-      </div>
-    </section>
-
-    <!-- SMS / SMISHING RESULTS CARD -->
-    <section id="msgResultCard">
-      <div class="card-panel">
-        <div class="assessment-header">
-          <div class="score-meter-wrap" style="border-color:var(--rose); box-shadow:0 0 30px var(--rose-glow);">
-            <span id="msgUrgencyScore" class="meter-num" style="color:var(--rose);">85%</span>
-            <span class="meter-lbl">Threat Score</span>
-          </div>
-
-          <div style="flex:1;">
-            <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:8px;">
-              <span id="msgRiskPill" class="verdict-badge badge-danger">🚨 HIGH RISK: MALICIOUS SCAM DETECTED</span>
-              <span id="msgLangPill" class="verdict-badge" style="background:rgba(255,255,255,0.06); color:var(--text-primary); border:1px solid var(--border-subtle);">🌐 English (Global NLP Core)</span>
+      <!-- SMS Results Presentation Card (Hidden by default) -->
+      <section id="msgResultCard" class="container" style="display:none;">
+        <article class="result-card">
+          <div class="result-header">
+            <div class="score-circle" style="border-color:var(--bad);">
+              <span class="score-number" id="msgUrgencyScore" style="color:var(--bad);">85%</span>
+              <span class="score-label">Threat Score</span>
             </div>
-            <h2 id="msgTitle" class="assessment-title">Urgent Social Engineering Threat</h2>
-            <p class="assessment-desc">The parsed message displays coercive psychological traps characteristic of Indian banking smishing attacks.</p>
-          </div>
-        </div>
-
-        <!-- Extracted Entities -->
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; background:rgba(0,0,0,0.25); border-radius:var(--radius-md); padding:16px; margin:20px 0;">
-          <div>
-            <span style="font-size:11px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Extracted Link</span>
-            <div id="msgExtractedUrl" style="font-family:var(--font-mono); font-size:13px; color:var(--cyan); margin-top:2px; word-break:break-all;">None</div>
-          </div>
-          <div>
-            <span style="font-size:11px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Fake Helpline / Mobile Number</span>
-            <div id="msgExtractedPhone" style="font-family:var(--font-mono); font-size:13px; color:var(--rose); margin-top:2px;">None</div>
-          </div>
-          <div>
-            <span style="font-size:11px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Extracted UPI Gateway</span>
-            <div id="msgExtractedUpi" style="font-family:var(--font-mono); font-size:13px; color:var(--amber); margin-top:2px;">None</div>
-          </div>
-        </div>
-
-        <!-- Detected Psychological Coercion Patterns -->
-        <div>
-          <p class="section-eyebrow">DETECTED PSYCHOLOGICAL TRAPS & SMISHING TOKENS</p>
-          <div id="msgTactics" style="background:rgba(244, 63, 94, 0.05); border-left:3px solid var(--rose); padding:16px 20px; border-radius:var(--radius-sm); font-size:14px; line-height:1.7; color:var(--text-primary);"></div>
-        </div>
-
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:24px;">
-          <button class="action-scan-btn" type="button" onclick="handoffMessageUrl()">
-            <span>Scan Extracted URL In Deep Engine →</span>
-          </button>
-          <button class="scenario-chip" type="button" onclick="document.getElementById('msgResultCard').style.display='none'">
-            Close Analysis
-          </button>
-        </div>
-
-        <!-- Incident Triage for SMS -->
-        <div class="triage-card" style="margin-top:24px; padding:20px; background:rgba(0,0,0,0.2);">
-          <div class="triage-header-row">
             <div>
-              <span class="triage-eyebrow" style="color:var(--rose);">🚨 Smishing Incident Recovery Guide</span>
-              <h3 class="triage-heading" style="font-size:15px;">Did you interact with this SMS? Select your situation:</h3>
-            </div>
-            <div class="helpline-pill">
-              <span>Helpline: <b>1930</b></span>
+              <span id="msgRiskPill" class="verdict-badge badge-danger">🚨 HIGH RISK: MALICIOUS SCAM DETECTED</span>
+              <span id="msgLangPill" class="verdict-badge" style="background:var(--surface-2); color:var(--ink); margin-left:8px;">🌐 English (Global NLP Core)</span>
+              <h2 id="msgTitle" class="verdict-headline">Urgent Social Engineering Threat</h2>
+              <p class="verdict-summary">The parsed message displays predatory psychological coercion patterns characteristic of financial smishing attacks.</p>
             </div>
           </div>
-          <div class="triage-selector-bar">
-            <button class="triage-choice-btn active" type="button" onclick="selectTriageStep(0, this)">1. I only read it</button>
-            <button class="triage-choice-btn" type="button" onclick="selectTriageStep(1, this)">2. I clicked the link</button>
-            <button class="triage-choice-btn" type="button" onclick="selectTriageStep(2, this)">3. I called the number / gave MPIN</button>
-            <button class="triage-choice-btn" type="button" onclick="selectTriageStep(3, this)">4. I shared OTP / forwarded SMS</button>
-            <button class="triage-choice-btn" type="button" onclick="selectTriageStep(4, this)">5. I approved UPI payment</button>
+
+          <!-- Extracted Entities -->
+          <div class="sms-entities-row">
+            <div class="sms-entity-item">
+              <span class="sms-entity-label">Embedded Link</span>
+              <span class="sms-entity-val" id="msgExtractedUrl">None</span>
+            </div>
+            <div class="sms-entity-item">
+              <span class="sms-entity-label">Suspicious Phone / Helpline</span>
+              <span class="sms-entity-val" id="msgExtractedPhone">None</span>
+            </div>
+            <div class="sms-entity-item">
+              <span class="sms-entity-label">Payment Gateway / UPI</span>
+              <span class="sms-entity-val" id="msgExtractedUpi">None</span>
+            </div>
           </div>
-          <div id="msgTriageActionDetail" class="triage-instructions-box"></div>
-        </div>
-      </div>
+
+          <!-- Social Engineering Tactics -->
+          <div>
+            <p class="intro-eyebrow">Detected Psychological Traps & Indicators</p>
+            <div id="msgTactics" class="sms-tactics-box"></div>
+          </div>
+
+          <!-- Victim Incident Response & Triage Guide for SMS -->
+          <div class="triage-section">
+            <div class="triage-head">
+              <div>
+                <span class="intro-eyebrow" style="color:var(--bad);">🚨 Smishing Incident Recovery Guide</span>
+                <h3 style="font-size:16px; font-weight:600; margin-top:2px;">Did you interact with this message? Select your situation:</h3>
+              </div>
+              <div class="emergency-badge">
+                <span>National Cyber Helpline: <b>1930</b></span>
+              </div>
+            </div>
+
+            <div class="triage-pills">
+              <button class="triage-pill active" type="button" onclick="selectTriageStep(0, this)">1. I only read the SMS</button>
+              <button class="triage-pill" type="button" onclick="selectTriageStep(1, this)">2. I clicked the link</button>
+              <button class="triage-pill" type="button" onclick="selectTriageStep(2, this)">3. I called the number / gave MPIN</button>
+              <button class="triage-pill" type="button" onclick="selectTriageStep(3, this)">4. I forwarded the SMS / gave OTP</button>
+              <button class="triage-pill" type="button" onclick="selectTriageStep(4, this)">5. I approved UPI payment</button>
+            </div>
+
+            <div id="msgTriageActionDetail" class="triage-detail-box"></div>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <button class="pill pill-signal" type="button" onclick="handoffMessageUrl()">
+              Scan Extracted Link In Deep Engine →
+            </button>
+            <button class="pill pill-light" type="button" onclick="document.getElementById('msgResultCard').style.display='none'">
+              Close Analysis
+            </button>
+          </div>
+        </article>
+      </section>
+
     </section>
 
-    <!-- Educational Padlock Comparison Section -->
-    <section class="education-section">
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;">
+    <!-- Section: A Padlock Proves Encryption, Not Identity -->
+    <section aria-labelledby="statement" class="section container veriq-intro" id="veriq-intro">
+      <div class="intro-heading">
+        <p class="intro-eyebrow">Less guesswork. More perspective.</p>
+        <p>A familiar logo. A convincing message. A perfectly valid padlock. Trust takes more than appearances.</p>
+      </div>
+
+      <div class="statement-grid">
         <div>
-          <span class="section-eyebrow">SECURITY RE-IMAGINED</span>
-          <h2 class="section-heading">A padlock proves encryption.<br>Not who you're talking to.</h2>
-          <p class="section-subtext">
-            Attackers easily obtain free SSL certificates to show a green padlock icon. TrustNetra AI looks past the lock to inspect domain authority, RFC 6962 Certificate Transparency, and form destination sinks.
-          </p>
-          <button class="action-scan-btn" type="button" onclick="window.scrollTo({top:0, behavior:'smooth'});">
-            <span>Try an Investigation</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </button>
+          <h2 class="statement" id="statement">
+            A padlock proves encryption. Not who you're talking to.
+          </h2>
+          <div>
+            <a class="pill pill-dark" style="margin-top:32px" href="#investigate-composer">
+              Start investigating <span class="dot"></span>
+            </a>
+          </div>
         </div>
 
         <div>
-          <!-- Simulated Browser Bar Demo -->
-          <div class="padlock-demo-box">
-            <div class="simulated-url-bar">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <!-- Animated Fake Address Bar Demo -->
+          <div aria-label="Example: a valid padlock on a site that is not the bank" class="addr-demo" role="img">
+            <div class="addr-bar">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
               <span>https://sbi-kyc-update.in/verify</span>
+              <i class="addr-scan"></i>
             </div>
-
-            <div class="check-item-list">
-              <div class="check-item">
-                <span>Connection Encrypted (TLS 1.3)</span>
-                <span class="check-pass">PASS ✓</span>
-              </div>
-              <div class="check-item">
-                <span>Owned by State Bank of India</span>
-                <span class="check-fail">FAIL ✗</span>
-              </div>
-              <div class="check-item">
-                <span>Prompts for NetBanking Password & OTP</span>
-                <span class="check-fail">FAIL ✗</span>
-              </div>
-              <div class="check-item">
-                <span>Certificate Transparency Log Conformance</span>
-                <span class="check-fail">FAIL ✗</span>
-              </div>
-            </div>
-
-            <div style="display:flex; justify-content:space-between; align-items:center; padding-top:12px; border-top:1px solid var(--border-subtle);">
-              <span style="font-size:12px; color:var(--text-muted); font-weight:600;">Overall Threat Evaluation:</span>
-              <span class="verdict-badge badge-danger" style="margin:0;">HIGH RISK (12%)</span>
+            <ul class="addr-checks">
+              <li class="ok"><span>Connection encrypted (TLS 1.3)</span><b>Pass</b></li>
+              <li class="bad"><span>Owned by State Bank of India</span><b>Fail</b></li>
+              <li class="bad"><span>Prompts for NetBanking OTP</span><b>Fail</b></li>
+            </ul>
+            <div class="addr-verdict">
+              <span class="risk risk-high_risk">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg>
+                High Risk (12%)
+              </span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Five Steps Journey Section -->
-    <section style="padding:40px 0;">
-      <span class="section-eyebrow">DETERMINISTIC PIPELINE</span>
-      <h2 class="section-heading">Five steps. One definitive answer.</h2>
-      
-      <div class="steps-grid">
-        <div class="step-card">
-          <span class="step-num-badge">01</span>
-          <h3 class="step-name">Submit Target</h3>
-          <p class="step-desc">A website link, domain name, or suspicious SMS message in any Indian script.</p>
+    <!-- Section: The 5-Step Journey -->
+    <section aria-labelledby="journey-title" class="section container" id="method">
+      <div class="section-head">
+        <h2 id="journey-title">Five steps. One answer.</h2>
+      </div>
+      <div class="journey">
+        <article class="journey-card">
+          <div class="journey-top"><span class="num">01</span></div>
+          <h3>Submit</h3>
+          <p>A link, a domain or an SMS message.</p>
+        </article>
+        <article class="journey-card">
+          <div class="journey-top"><span class="num">02</span></div>
+          <h3>Inspect</h3>
+          <p>DNS, homographs, redirects, certificates.</p>
+        </article>
+        <article class="journey-card">
+          <div class="journey-top"><span class="num">03</span></div>
+          <h3>Analyse</h3>
+          <p>Indic NLP across 8 scripts, brand lookalikes.</p>
+        </article>
+        <article class="journey-card">
+          <div class="journey-top"><span class="num">04</span></div>
+          <h3>Assess</h3>
+          <p>One deterministic trust score from 0 to 100%.</p>
+        </article>
+        <article class="journey-card">
+          <div class="journey-top"><span class="num">05</span></div>
+          <h3>Protect</h3>
+          <p>Instant browser shields & on-device privacy.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Section: Six Views of One Link -->
+    <section aria-labelledby="views-title" class="section container">
+      <div class="stage views-stage">
+        <h2 id="views-title">Six views of one link.</h2>
+        <div class="views-grid">
+          <article class="glass view-card">
+            <div>
+              <h3>Link & domain</h3>
+              <p>Lookalikes and Levenshtein distance</p>
+            </div>
+          </article>
+          <article class="glass view-card">
+            <div>
+              <h3>Certificate</h3>
+              <p>Chain, RFC 6962 CT logs, rogue CAs</p>
+            </div>
+          </article>
+          <article class="glass view-card">
+            <div>
+              <h3>Page identity</h3>
+              <p>Brand claims, form sinks</p>
+            </div>
+          </article>
+          <article class="glass view-card">
+            <div>
+              <h3>SMS & Messages</h3>
+              <p>OTP, smishing, and fake helpline traps</p>
+            </div>
+          </article>
+          <article class="glass view-card">
+            <div>
+              <h3>Indic NLP</h3>
+              <p>Hindi, Bengali, Tamil, Telugu, Hinglish</p>
+            </div>
+          </article>
+          <article class="glass view-card">
+            <div>
+              <h3>Academic Guard</h3>
+              <p>Anti-bypass accredited domain protection</p>
+            </div>
+          </article>
         </div>
-        <div class="step-card">
-          <span class="step-num-badge">02</span>
-          <h3 class="step-name">Deep Inspection</h3>
-          <p class="step-desc">Levenshtein distance, brand spoofing, TLD reputation, and RFC 6962 CT logs.</p>
+      </div>
+    </section>
+
+    <!-- Section: Built to Avoid False Alarms -->
+    <section aria-labelledby="cases-title" class="section container">
+      <div class="section-head">
+        <h2 id="cases-title">Built to avoid false alarms.</h2>
+      </div>
+      <div class="cases">
+        <article class="case">
+          <h3>Valid padlock, fake bank</h3>
+          <p>Encryption isn't identity. Attacker uses free Let's Encrypt TLS.</p>
+          <span class="risk risk-high_risk">High Risk</span>
+        </article>
+        <article class="case">
+          <h3>Urgent, but genuine alert</h3>
+          <p>Official bank debit notification with real toll-free helpline.</p>
+          <span class="risk risk-low_risk">Low Risk (96%)</span>
+        </article>
+        <article class="case">
+          <h3>Accredited academic portal</h3>
+          <p>Student logins on .ac.in / .gov.in domains remain green.</p>
+          <span class="risk risk-low_risk">Verified Safe (96%)</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- Live Stream / Stats Section -->
+    <section aria-labelledby="stream-title" class="section container">
+      <div class="stage stream-stage">
+        <div class="stream-top">
+          <h2 id="stream-title">Deterministic Engine Metrics</h2>
+          <span class="meta-chip glass-chip"><span class="live-dot"></span> Live Automated Suite</span>
         </div>
-        <div class="step-card">
-          <span class="step-num-badge">03</span>
-          <h3 class="step-name">Indic NLP</h3>
-          <p class="step-desc">Coercion detection across 8 Indian languages (Hindi, Bengali, Tamil, Telugu, etc.).</p>
+        <div class="stream-stats">
+          <div class="glass solid stream-stat">
+            <strong>16/16</strong>
+            <span>Passing Test Assertions</span>
+          </div>
+          <div class="glass solid stream-stat">
+            <strong>100%</strong>
+            <span>Client-Side Privacy</span>
+          </div>
+          <div class="glass solid stream-stat">
+            <strong>8</strong>
+            <span>Indian Regional Scripts</span>
+          </div>
+          <div class="glass solid stream-stat">
+            <strong>0 ms</strong>
+            <span>External API Latency</span>
+          </div>
         </div>
-        <div class="step-card">
-          <span class="step-num-badge">04</span>
-          <h3 class="step-name">Risk Assessment</h3>
-          <p class="step-desc">Multidimensional trust score from 0% to 100% with transparent evidence factors.</p>
-        </div>
-        <div class="step-card">
-          <span class="step-num-badge">05</span>
-          <h3 class="step-name">Instant Protection</h3>
-          <p class="step-desc">Immediate incident recovery steps and national cyber helpline 1930 guidance.</p>
-        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Banner -->
+    <section aria-labelledby="cta-title" class="section container">
+      <div class="stage cta-stage">
+        <h2 id="cta-title">Check the link before you click.</h2>
+        <a aria-label="Start an investigation" class="cta-button" href="#investigate-composer">
+          <span>Investigate</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </a>
       </div>
     </section>
   </main>
 
-  <!-- Modern Dark Footer -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div>
-        <span style="font-weight:700; color:var(--text-primary);">TrustNetra AI</span> — Evidence-backed web threat defense.
-      </div>
-      <div class="footer-links">
-        <a href="#urlScannerBox">Scanner</a>
-        <a href="https://github.com/sayan04042007-arch/trust-netra-app" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://github.com/sayan04042007-arch/trust-netra-app/actions" target="_blank" rel="noopener">CI Pipeline (Passing)</a>
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-top">
+          <p class="footer-note">TrustNetra AI — Verify before you trust. Built for HackMatrix Web Threat Challenge.</p>
+          <nav aria-label="Footer">
+            <a href="#investigate-composer">Investigate</a>
+            <a href="https://github.com/sayan04042007-arch/trust-netra-app" target="_blank" rel="noopener">GitHub Repository</a>
+            <a href="https://github.com/sayan04042007-arch/trust-netra-app/actions" target="_blank" rel="noopener">CI Tests (Passing)</a>
+          </nav>
+        </div>
+        <div aria-hidden="true" class="footer-word">TrustNetra</div>
       </div>
     </div>
   </footer>
