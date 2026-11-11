@@ -697,3 +697,90 @@ function handoffMessageUrl() {
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
 });
+
+
+// ─── Incident Response & Emergency Triage Engine ───────────────────────────
+const TRIAGE_STEPS = [
+  {
+    title: "Safe Scenario: You only received or viewed the suspicious link or message",
+    severity: "low",
+    steps: [
+      "<b>No data was compromised:</b> Simply receiving an SMS or viewing a link does not give scammers access to your funds or phone.",
+      "<b>Do NOT click</b> any hyperlinks, buttons, or downloadable attachments in the text.",
+      "<b>Block the sender</b> immediately on WhatsApp, SMS, and Truecaller to prevent repeated coercion.",
+      "<b>Delete the message:</b> Remove the message to prevent accidental clicks by yourself or family members later."
+    ]
+  },
+  {
+    title: "Caution Scenario: You clicked the link, but entered NO credentials or OTP",
+    severity: "medium",
+    steps: [
+      "<b>Close the browser tab immediately:</b> Do not navigate around or submit any forms on the page.",
+      "<b>Clear browser cache & cookies:</b> Go to Browser Settings → Privacy & Security → Clear Browsing Data for the last 1 hour.",
+      "<b>Check Downloads Folder:</b> Ensure no malicious APK (e.g. <code>SBI_Rewards.apk</code>) was automatically downloaded. If found, delete it immediately without opening.",
+      "<b>You are safe:</b> As long as you did not submit passwords, card details, or install an unknown app, your account remains secure."
+    ]
+  },
+  {
+    title: "HIGH RISK: You entered your NetBanking Password, UPI PIN, or MPIN",
+    severity: "high",
+    steps: [
+      "<b>Change your password right now:</b> Open your bank's OFFICIAL app or authentic website (e.g. <code>onlinesbi.sbi</code>) and change your login and transaction passwords immediately.",
+      "<b>Call Bank Emergency Helpline:</b> Contact your bank immediately to lock NetBanking access (SBI: <code>1800 11 2211</code> | HDFC: <code>1800 202 6161</code> | ICICI: <code>1800 1080</code> | Axis: <code>1860 419 5555</code>).",
+      "<b>Temporarily freeze online transactions:</b> In your official banking mobile app, toggle OFF 'International Transactions' and 'E-commerce Payments' until your card is replaced."
+    ]
+  },
+  {
+    title: "CRITICAL EMERGENCY: You shared an OTP or forwarded the SMS",
+    severity: "critical",
+    steps: [
+      "<b>ACT WITHIN THE GOLDEN HOUR (First 2 Hours):</b> Fraudulent transactions can often be frozen across Indian banks if reported immediately to authorities.",
+      "<b>Dial 1930 immediately:</b> This is the Ministry of Home Affairs (MHA) National Cyber Crime Reporting Helpline operated 24x7 across all Indian states.",
+      "<b>Block your SIM & Debit Card:</b> If the attacker requested SIM swap verification, contact your telecom provider (Jio, Airtel, Vi) immediately to verify SIM status.",
+      "<b>File an official cyber incident report:</b> Submit details, timestamps, and scammer numbers at <code>cybercrime.gov.in</code>."
+    ]
+  },
+  {
+    title: "FINANCIAL LOSS: You approved a UPI collect request or sent money",
+    severity: "critical",
+    steps: [
+      "<b>Save the 12-Digit UPI Reference Number (UTR):</b> Locate this in Google Pay, PhonePe, or Paytm under transaction history (e.g., <code>4312XXXXXXXX</code>).",
+      "<b>Call 1930 immediately:</b> Provide the UTR number, your bank account, and the scammer's UPI ID. The 1930 portal coordinates with beneficiary banks to freeze the scammer's wallet.",
+      "<b>Raise an in-app dispute:</b> Tap 'Report a Problem' in your UPI app and select 'Fraudulent Collect Request / Money Sent by Deception'.",
+      "<b>Preserve evidence:</b> Keep screenshots of the SMS alert, chat messages, phone numbers, and payment receipts as formal police evidence."
+    ]
+  }
+];
+
+function selectTriageStep(idx, btn) {
+  const container = document.getElementById('triageActionDetail');
+  const msgContainer = document.getElementById('msgTriageActionDetail');
+  
+  // Update buttons
+  const pills = document.querySelectorAll('.triage-pill');
+  pills.forEach(p => p.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  const data = TRIAGE_STEPS[idx];
+  if (!data) return;
+
+  let html = `<div style="font-weight:700; margin-bottom:12px; font-size:15px; color:${data.severity === 'critical' ? 'var(--bad)' : (data.severity === 'high' ? 'var(--warn)' : 'var(--ink)')};">${data.title}</div>`;
+  html += `<div style="display:flex; flex-direction:column; gap:8px;">`;
+  data.steps.forEach((step, i) => {
+    html += `
+      <div class="triage-step-item">
+        <div class="triage-step-num">${i + 1}</div>
+        <div>${step}</div>
+      </div>
+    `;
+  });
+  html += `</div>`;
+
+  if (container) container.innerHTML = html;
+  if (msgContainer) msgContainer.innerHTML = html;
+}
+
+// Auto-initialize triage step 0 on load
+document.addEventListener('DOMContentLoaded', () => {
+  selectTriageStep(0, document.querySelector('.triage-pill'));
+});

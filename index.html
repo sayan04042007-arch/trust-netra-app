@@ -282,6 +282,29 @@
               <div id="actionCallout" class="advice-banner">
                 <b>Recommended Action:</b> Safe for standard navigation.
               </div>
+
+              <!-- Victim Incident Response & Triage Guide -->
+              <div class="triage-section">
+                <div class="triage-head">
+                  <div>
+                    <span class="intro-eyebrow" style="color:var(--signal);">🛡️ What Should You Do? (Emergency Triage)</span>
+                    <h3 style="font-size:16px; font-weight:600; margin-top:2px;">Select what happened for instant recovery steps:</h3>
+                  </div>
+                  <div class="emergency-badge">
+                    <span>National Cyber Crime Helpline: <b>1930</b></span>
+                  </div>
+                </div>
+
+                <div class="triage-pills">
+                  <button class="triage-pill active" type="button" onclick="selectTriageStep(0, this)">1. I only viewed it</button>
+                  <button class="triage-pill" type="button" onclick="selectTriageStep(1, this)">2. I clicked the link</button>
+                  <button class="triage-pill" type="button" onclick="selectTriageStep(2, this)">3. I entered password / MPIN</button>
+                  <button class="triage-pill" type="button" onclick="selectTriageStep(3, this)">4. I shared OTP / forwarded SMS</button>
+                  <button class="triage-pill" type="button" onclick="selectTriageStep(4, this)">5. I sent money / approved UPI</button>
+                </div>
+
+                <div id="triageActionDetail" class="triage-detail-box"></div>
+              </div>
             </div>
           </div>
 
@@ -385,6 +408,29 @@
           <div>
             <p class="intro-eyebrow">Detected Psychological Traps & Indicators</p>
             <div id="msgTactics" class="sms-tactics-box"></div>
+          </div>
+
+          <!-- Victim Incident Response & Triage Guide for SMS -->
+          <div class="triage-section">
+            <div class="triage-head">
+              <div>
+                <span class="intro-eyebrow" style="color:var(--bad);">🚨 Smishing Incident Recovery Guide</span>
+                <h3 style="font-size:16px; font-weight:600; margin-top:2px;">Did you interact with this message? Select your situation:</h3>
+              </div>
+              <div class="emergency-badge">
+                <span>National Cyber Helpline: <b>1930</b></span>
+              </div>
+            </div>
+
+            <div class="triage-pills">
+              <button class="triage-pill active" type="button" onclick="selectTriageStep(0, this)">1. I only read the SMS</button>
+              <button class="triage-pill" type="button" onclick="selectTriageStep(1, this)">2. I clicked the link</button>
+              <button class="triage-pill" type="button" onclick="selectTriageStep(2, this)">3. I called the number / gave MPIN</button>
+              <button class="triage-pill" type="button" onclick="selectTriageStep(3, this)">4. I forwarded the SMS / gave OTP</button>
+              <button class="triage-pill" type="button" onclick="selectTriageStep(4, this)">5. I approved UPI payment</button>
+            </div>
+
+            <div id="msgTriageActionDetail" class="triage-detail-box"></div>
           </div>
 
           <div style="display:flex; justify-content:space-between; align-items:center;">
